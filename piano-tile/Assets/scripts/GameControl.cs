@@ -7,18 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
-    private static float noteHeight;
+    public static float noteHeight;
     private static float noteWidth;
     public Note notePrefab;
-    private Vector3 noteLocalScale;
+    public static Vector3 noteLocalScale;
     private float noteSpawnStartPosX;
     public Transform lastSpawnedNote;
-
+    public static int currentNote;
 
     public static GameControl Instance { get; private set; }
     public ReactiveProperty<bool> GameStarted { get; set; }
     public ReactiveProperty<bool> GameOver { get; set; }
     public ReactiveProperty<int> Score { get; set; }
+
+    private int lastNoteId = 1;
+    public int LastPlayedNoteId { get; set; }
+
+    public static List<Vector2> spawns = new List<Vector2>();
 
     private void Awake()
     {
@@ -26,24 +31,28 @@ public class GameControl : MonoBehaviour
         GameStarted = new ReactiveProperty<bool>();
         GameOver = new ReactiveProperty<bool>();
         Score = new ReactiveProperty<int>();
-        ShowGameOverScreen = new ReactiveProperty<bool>();
     }
 
     void Start()
     {
         SetDataForNoteGeneration();
+        SpawnNotes();
     }
 
     void Update()
     {
-        DetectNoteClicks();
+        const float epsilon = 0.01f; // Adjust as needed
+        if (Mathf.Abs(Time.time - MidiFileInfo.timeStamps[currentNote]) < epsilon)
+        {
+            SpawnNotes();
+        }
     }
 
-    private void SetDataForNoteGeneration()
+    public void SetDataForNoteGeneration()
     {
-        var topRight = new Vector3(Screen.width, Screen.height, 0);
+        var topRight = new Vector2(Screen.width, Screen.height);
         var topRightWorldPoint = Camera.main.ScreenToWorldPoint(topRight);
-        var bottomLeftWorldPoint = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        var bottomLeftWorldPoint = Camera.main.ScreenToWorldPoint(Vector2.zero);
         var screenWidth = topRightWorldPoint.x - bottomLeftWorldPoint.x;
         var screenHeight = topRightWorldPoint.y - bottomLeftWorldPoint.y;
         // pøizpùsobení velikosti na specifickou obrazovku
@@ -52,71 +61,30 @@ public class GameControl : MonoBehaviour
         noteWidth = screenWidth / 4;
         // velikost not
 
-        noteLocalScale = new Vector3(
+        var noteSpriteRenderer = notePrefab.GetComponent<SpriteRenderer>();
+
+        notePrefab.transform.localScale = new Vector3(
                noteWidth / noteSpriteRenderer.bounds.size.x * noteSpriteRenderer.transform.localScale.x,
                noteHeight / noteSpriteRenderer.bounds.size.y * noteSpriteRenderer.transform.localScale.y, 1);
 
-        var leftmostPoint = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height / 2));
-        var leftmostPointPivot = leftmostPoint.x + noteWidth / 2;
-        noteSpawnStartPosX = leftmostPointPivot;
+        var spawnHeight = (topRightWorldPoint.y * 5) / 4;
+
+        Vector2 leftSpawn = new Vector2(-(noteWidth * 3 / 2), spawnHeight);
+        Vector2 leftMiddleSpawn = new Vector2(-noteWidth / 2, spawnHeight);
+        Vector2 rightMiddleSpawn = new Vector2(noteWidth / 2, spawnHeight);
+        Vector2 rightSpawn = new Vector2((noteWidth * 3) / 2, spawnHeight);
+        spawns.Add(leftMiddleSpawn);
+        spawns.Add(rightMiddleSpawn);
+        spawns.Add(leftSpawn);
+        spawns.Add(rightSpawn);
     }
 
-    private void DetectNoteClicks()
+    private void SpawnNotes()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var hit = Physics2D.Raycast(origin, Vector2.zero);
-            if (hit)
-            {
-                var gameObject = hit.collider.gameObject;
-                if (gameObject.CompareTag("Note"))
-                {
-                    var note = gameObject.GetComponent<Note>();
-                    note.Play();
-                }
-            }
-        }
+        foreach(Vector2 spawnPosition in spawns)
+            Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+
+        currentNote++;
+        Debug.Log(currentNote);
     }
-
-    /*public void SpawnNotes()
-    {
-        if (lastSpawn) return;
-
-        var noteSpawnStartPosY = lastSpawnedNote.position.y + noteHeight;
-        Note note = null;
-        var timeTillEnd = audioSource.clip.length - audioSource.time;
-        int notesToSpawn = NotesToSpawn;
-        if (timeTillEnd < NotesToSpawn)
-        {
-            notesToSpawn = Mathf.CeilToInt(timeTillEnd);
-            lastSpawn = true;
-        }
-        for (int i = 0; i < notesToSpawn; i++)
-        {
-            var randomIndex = GetRandomIndex();
-            for (int j = 0; j < 4; j++)
-            {
-                note = Instantiate(notePrefab, noteContainer.transform);
-                note.transform.localScale = noteLocalScale;
-                note.transform.position = new Vector2(noteSpawnStartPosX + noteWidth * j, noteSpawnStartPosY);
-                note.Visible = (j == randomIndex);
-                if (note.Visible)
-                {
-                    note.Id = lastNoteId;
-                    lastNoteId++;
-                }
-            }
-            noteSpawnStartPosY += noteHeight;
-            if (i == NotesToSpawn - 1) lastSpawnedNote = note.transform;
-        }
-    }
-
-    private int GetRandomIndex()
-    {
-        var randomIndex = Random.Range(0, 4);
-        while (randomIndex == prevRandomIndex) randomIndex = Random.Range(0, 4);
-        prevRandomIndex = randomIndex;
-        return randomIndex;
-    }*/
 }
