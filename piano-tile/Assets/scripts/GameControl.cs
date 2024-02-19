@@ -10,25 +10,27 @@ public class GameControl : MonoBehaviour
     public static float noteHeight;
     private static float noteWidth;
     public Note notePrefab;
+    public float lastSpawnedY;
+    public Note lastSpawned;
     public static Vector3 noteLocalScale;
     private float noteSpawnStartPosX;
-    public Transform lastSpawnedNote;
-    public static int currentNote;
+    public static int currentNote = 0;
+    public static float lastSpawnTime;
 
     public static GameControl Instance { get; private set; }
     public ReactiveProperty<bool> GameStarted { get; set; }
     public ReactiveProperty<bool> GameOver { get; set; }
     public ReactiveProperty<int> Score { get; set; }
 
-    private int lastNoteId = 1;
+    private int lastNoteId = 0;
     public int LastPlayedNoteId { get; set; }
 
-    public static List<Vector2> spawns = new List<Vector2>();
+    public static List<float> spawns = new List<float>();
 
     private void Awake()
     {
         Instance = this;
-        GameStarted = new ReactiveProperty<bool>();
+        //GameStarted = new ReactiveProperty<bool>();
         GameOver = new ReactiveProperty<bool>();
         Score = new ReactiveProperty<int>();
     }
@@ -36,17 +38,15 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         SetDataForNoteGeneration();
-        SpawnNotes();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        const float epsilon = 0.01f; // Adjust as needed
-        if (Mathf.Abs(Time.time - MidiFileInfo.timeStamps[currentNote]) < epsilon)
-        {
+        if (Time.time == lastSpawnTime + MidiFileInfo.shortestNoteSec)
+            lastSpawnTime = Time.time;
             SpawnNotes();
-        }
     }
+    
 
     public void SetDataForNoteGeneration()
     {
@@ -69,22 +69,58 @@ public class GameControl : MonoBehaviour
 
         var spawnHeight = (topRightWorldPoint.y * 5) / 4;
 
-        Vector2 leftSpawn = new Vector2(-(noteWidth * 3 / 2), spawnHeight);
-        Vector2 leftMiddleSpawn = new Vector2(-noteWidth / 2, spawnHeight);
-        Vector2 rightMiddleSpawn = new Vector2(noteWidth / 2, spawnHeight);
-        Vector2 rightSpawn = new Vector2((noteWidth * 3) / 2, spawnHeight);
+        float leftSpawn = -noteWidth * 3 / 2;
+        float leftMiddleSpawn = -noteWidth / 2;
+        float rightMiddleSpawn = noteWidth / 2;
+        float rightSpawn = noteWidth * 3 / 2;
         spawns.Add(leftMiddleSpawn);
         spawns.Add(rightMiddleSpawn);
         spawns.Add(leftSpawn);
         spawns.Add(rightSpawn);
+
+        lastSpawnedY = spawnHeight;
+
+
     }
 
     private void SpawnNotes()
     {
-        foreach(Vector2 spawnPosition in spawns)
-            Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+        if (lastSpawned !=  null)
+        {
+            lastSpawnedY = lastSpawned.transform.position.y;
+        }
 
-        currentNote++;
-        Debug.Log(currentNote);
+        if (currentNote < MidiFileInfo.timeStamps.Count)
+        {
+            if (Mathf.Abs(Time.time - MidiFileInfo.timeStamps[currentNote]) < 0.01f)
+            {
+                int rnd = Random.Range(0, spawns.Count);
+
+                while (lastNoteId == rnd)
+                {
+                    rnd = Random.Range(0, spawns.Count);
+                }
+
+                for (int i = 0; i < spawns.Count; i++)
+                {
+                    if (i == rnd)
+                    {
+                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY), Quaternion.identity);
+                        lastSpawned.visible = true;
+                    }
+
+                    else Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY), Quaternion.identity);
+                }
+
+                
+                lastNoteId = rnd;
+                currentNote++;
+            }
+
+            else foreach (float spawnPosition in spawns)
+            {
+                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY), Quaternion.identity);
+            }
+        }
     }
 }

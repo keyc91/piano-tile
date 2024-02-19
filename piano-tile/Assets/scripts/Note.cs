@@ -12,30 +12,28 @@ public class Note : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
 
-    private bool visible;
-    public bool Visible
-    {
-        get => visible;
-        set
-        {
-            visible = value;
-            if (!visible)
-            {
-
-            }
-        }
-    }
+    public bool visible = false;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        if (visible == false)
+        { 
+            Renderer renderer = GetComponent<Renderer>();
+            GetComponent<Renderer>().enabled = false;
+        }
     }
 
     private void Update()
     {
         rb.velocity = new Vector2(0f, -MidiFileInfo.speed);
+        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
+        {
+            Destroy(gameObject);
+        }
     }
 }
 
