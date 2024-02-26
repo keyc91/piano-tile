@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -18,9 +17,6 @@ public class GameControl : MonoBehaviour
     public static float lastSpawnTime;
 
     public static GameControl Instance { get; private set; }
-    public ReactiveProperty<bool> GameStarted { get; set; }
-    public ReactiveProperty<bool> GameOver { get; set; }
-    public ReactiveProperty<int> Score { get; set; }
 
     private int lastNoteId = 0;
     public int LastPlayedNoteId { get; set; }
@@ -30,9 +26,6 @@ public class GameControl : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //GameStarted = new ReactiveProperty<bool>();
-        GameOver = new ReactiveProperty<bool>();
-        Score = new ReactiveProperty<int>();
     }
 
     void Start()
