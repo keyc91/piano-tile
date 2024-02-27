@@ -30,20 +30,16 @@ public class MidiFileInfo : MonoBehaviour
 
         foreach (Melanchall.DryWetMidi.Interaction.Note note in notes) 
         {
-            //Debug.Log($"length {note.LengthAs<MetricTimeSpan>(tempoMap)}");
             if (shortestNote > note.LengthAs<MetricTimeSpan>(tempoMap))
             {
                 shortestNote = note.LengthAs<MetricTimeSpan>(tempoMap);
             }
 
-            //Debug.Log($"name {note.NoteNumber}");
-            //Debug.Log($"time {note.TimeAs<MetricTimeSpan>(tempoMap)}");
-
             float timestamp = (note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1_000_000.0f);
 
             shortestNoteSec = (shortestNote.TotalMicroseconds / 1_000_000.0f);
-            Debug.Log($"timestamp {timestamp}");
-            timeStamps.Add(timestamp);
+            // Debug.Log($"timestamp {timestamp}");
+            timeStamps.Add(timestamp + 0.5f);
         }
 
         speed = GameControl.noteHeight / (float) shortestNote.TotalSeconds;

@@ -8,26 +8,28 @@ using System.Linq;
 
 public class Note : MonoBehaviour
 {
-    private bool isMouseClicked;
-    Animator animator;
-    Rigidbody2D rb;
-    SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
+    private Renderer rendererr;
+    //SpriteRenderer spriteRenderer;
 
+    private bool isMouseClicked;
     public bool visible = false;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(0f, -MidiFileInfo.speed);
+        rendererr = GetComponent<Renderer>();
 
-        animator = GetComponent<Animator>();
-        Renderer renderer = GetComponent<Renderer>();
+        rb.velocity = new Vector2(0f, -MidiFileInfo.speed);
+        // nastavi rychlost noty
 
         if (!visible)
         {
-            GetComponent<Renderer>().enabled = false;
+            rendererr.enabled = false;
         }
+        // zneviditelni noty
+
     }
 
     private void Update()
@@ -36,28 +38,11 @@ public class Note : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // smaze notu mimo obrazovku
     }
 
-    /*void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0)/* && color.color != Color.grey)
-        {
-            Debug.Log("click");
-        }
-    }
-
-    void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0) )
-        {
-            if (!visible)
-                WrongNote();
-
-            else if (visible)
-                CorrectNote();
-        }
-    }*/
-
+    /*
     private void WrongNote()
     {
         Debug.Log("wrong");
@@ -66,7 +51,7 @@ public class Note : MonoBehaviour
     private void CorrectNote()
     {
         Debug.Log("slay");
-    }
+    }*/
 }
 
 

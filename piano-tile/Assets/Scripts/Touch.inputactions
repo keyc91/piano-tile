@@ -6,13 +6,13 @@
             "id": "4bbf500a-d583-4d60-8470-745bfb95425a",
             "actions": [
                 {
-                    "name": "Button",
-                    "type": "Button",
+                    "name": "Tap",
+                    "type": "Value",
                     "id": "d72f6c6a-2125-4f26-9323-7e160fa2db84",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Touch",
                     "processors": "",
                     "interactions": "Tap",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

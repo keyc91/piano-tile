@@ -6,20 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    public static GameControl Instance;
+
+    public Note notePrefab;
     public static float noteHeight;
     private static float noteWidth;
-    public Note notePrefab;
-    public float lastSpawnedY;
-    public Note lastSpawned;
-    public static Vector3 noteLocalScale;
-    private float noteSpawnStartPosX;
-    public static int currentNote = 0;
-    public static float lastSpawnTime;
 
-    public static GameControl Instance { get; private set; }
+    public Note lastSpawned;
+    public float lastSpawnedY;
+
+    public static Vector3 noteLocalScale;
+    public static int currentNote = 0;
 
     private int lastNoteId = 0;
-    public int LastPlayedNoteId { get; set; }
+    public static float lastSpawnTime;
 
     public static List<float> spawns = new List<float>();
 
@@ -35,9 +35,12 @@ public class GameControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Time.time == lastSpawnTime + MidiFileInfo.shortestNoteSec)
+        if (Mathf.Approximately(Time.time, lastSpawnTime + MidiFileInfo.shortestNoteSec))
+        {
+            Debug.Log("Time.time worked");
             lastSpawnTime = Time.time;
             SpawnNotes();
+        }
     }
     
 
@@ -52,13 +55,14 @@ public class GameControl : MonoBehaviour
 
         noteHeight = screenHeight / 4;
         noteWidth = screenWidth / 4;
-        // velikost not
+        // vyska a delka not
 
         var noteSpriteRenderer = notePrefab.GetComponent<SpriteRenderer>();
 
         notePrefab.transform.localScale = new Vector3(
                noteWidth / noteSpriteRenderer.bounds.size.x * noteSpriteRenderer.transform.localScale.x,
                noteHeight / noteSpriteRenderer.bounds.size.y * noteSpriteRenderer.transform.localScale.y, 1);
+        // zmena velikosti prefabu noty
 
         var spawnHeight = (topRightWorldPoint.y * 5) / 4;
 
@@ -70,22 +74,25 @@ public class GameControl : MonoBehaviour
         spawns.Add(rightMiddleSpawn);
         spawns.Add(leftSpawn);
         spawns.Add(rightSpawn);
+        // spawn positions x axis
 
         lastSpawnedY = spawnHeight;
-
+        lastSpawnTime = -MidiFileInfo.shortestNoteSec;
 
     }
 
     private void SpawnNotes()
     {
+        Debug.Log("in spawn notes");
         if (lastSpawned !=  null)
         {
             lastSpawnedY = lastSpawned.transform.position.y;
         }
+        // y souradnice aby noty navazovaly
 
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
-            if (Mathf.Abs(Time.time - MidiFileInfo.timeStamps[currentNote]) < 0.01f)
+            if (Mathf.Approximately(lastSpawnTime, MidiFileInfo.timeStamps[currentNote]))
             {
                 int rnd = Random.Range(0, spawns.Count);
 
@@ -93,18 +100,24 @@ public class GameControl : MonoBehaviour
                 {
                     rnd = Random.Range(0, spawns.Count);
                 }
+                // zmena spawn x pozice oproti poslednim note
 
                 for (int i = 0; i < spawns.Count; i++)
                 {
                     if (i == rnd)
                     {
-                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY), Quaternion.identity);
+                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
                         lastSpawned.visible = true;
+                        Debug.Log("visible note");
                     }
 
-                    else Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY), Quaternion.identity);
+                    else
+                    {
+                        Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
+                        Debug.Log("invisible buddies");
+                    }
                 }
-
+                // ctyri noty na radek, jedna visible
                 
                 lastNoteId = rnd;
                 currentNote++;
@@ -112,8 +125,10 @@ public class GameControl : MonoBehaviour
 
             else foreach (float spawnPosition in spawns)
             {
-                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY), Quaternion.identity);
+                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
+                    Debug.Log("invisible");
             }
+            // ctyri noty na radek, vsechny invisible
         }
     }
 }
