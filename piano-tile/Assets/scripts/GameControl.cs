@@ -129,4 +129,11 @@ public class GameControl : MonoBehaviour
             // ctyri noty na radek, vsechny invisible
         }
     }
+
+    public void StopGame()
+    {
+        Time.timeScale = 0;
+        Debug.Log("Game stopped");
+        TouchManager.Instance.allowTouchInput = false;
+    }
 }

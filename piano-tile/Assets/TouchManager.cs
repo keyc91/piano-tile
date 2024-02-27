@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
+    public bool allowTouchInput;
+    public static TouchManager Instance;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        Instance = this;
+        allowTouchInput = true;
+    }
+
     void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (allowTouchInput)
         {
-            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
-
-            if (hit.collider != null)
+            Debug.Log("touch allowed");
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                Note noteComponent = hit.collider.GetComponent<Note>();
-                if (noteComponent != null)
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
+
+                if (hit.collider != null)
                 {
-                    noteComponent.Hit();
+                    Note noteComponent = hit.collider.GetComponent<Note>();
+                    if (noteComponent != null)
+                    {
+                        noteComponent.Hit();
+                    }
                 }
             }
         }
