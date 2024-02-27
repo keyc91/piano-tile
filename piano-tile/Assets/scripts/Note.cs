@@ -10,6 +10,7 @@ public class Note : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Renderer rendererr;
+    private BoxCollider2D boxcollider;
     //SpriteRenderer spriteRenderer;
 
     private bool isMouseClicked;
@@ -20,6 +21,7 @@ public class Note : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rendererr = GetComponent<Renderer>();
+        boxcollider = GetComponent<BoxCollider2D>();
 
         rb.velocity = new Vector2(0f, -MidiFileInfo.speed);
         // nastavi rychlost noty
@@ -38,20 +40,28 @@ public class Note : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         // smaze notu mimo obrazovku
     }
 
-    /*
+    public void Hit()
+    {
+        if (!visible) WrongNote();
+        else CorrectNote();
+    }
+
     private void WrongNote()
     {
-        Debug.Log("wrong");
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.black;
+
+        rendererr.enabled = true;
     }
 
     private void CorrectNote()
     {
-        Debug.Log("slay");
-    }*/
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.grey;
+    }
 }
 
 

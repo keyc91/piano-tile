@@ -37,7 +37,6 @@ public class GameControl : MonoBehaviour
     {
         if (Mathf.Approximately(Time.time, lastSpawnTime + MidiFileInfo.shortestNoteSec))
         {
-            Debug.Log("Time.time worked");
             lastSpawnTime = Time.time;
             SpawnNotes();
         }
@@ -83,7 +82,6 @@ public class GameControl : MonoBehaviour
 
     private void SpawnNotes()
     {
-        Debug.Log("in spawn notes");
         if (lastSpawned !=  null)
         {
             lastSpawnedY = lastSpawned.transform.position.y;
@@ -108,13 +106,13 @@ public class GameControl : MonoBehaviour
                     {
                         lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
                         lastSpawned.visible = true;
-                        Debug.Log("visible note");
+                        //Debug.Log("visible note");
                     }
 
                     else
                     {
                         Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
-                        Debug.Log("invisible buddies");
+                        //Debug.Log("invisible buddies");
                     }
                 }
                 // ctyri noty na radek, jedna visible
@@ -126,7 +124,7 @@ public class GameControl : MonoBehaviour
             else foreach (float spawnPosition in spawns)
             {
                 lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
-                    Debug.Log("invisible");
+                    //Debug.Log("invisible");
             }
             // ctyri noty na radek, vsechny invisible
         }
