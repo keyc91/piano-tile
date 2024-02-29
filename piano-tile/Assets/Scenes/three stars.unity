@@ -264,6 +264,10 @@ PrefabInstance:
       propertyPath: m_text
       value: levels
       objectReference: {fileID: 0}
+    - target: {fileID: 3428498232302767412, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6687502869594594212, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -420,7 +424,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766103697}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: e986fa2cb99f8aa4d9cca665931b1057, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: c5d9fac6cb8b64c43b0debf323da07d6, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -782,6 +786,10 @@ PrefabInstance:
     - target: {fileID: 2751681537195374039, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_text
       value: try again?
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428498232302767412, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6687502869594594212, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_Pivot.x

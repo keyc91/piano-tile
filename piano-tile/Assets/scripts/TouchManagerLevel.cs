@@ -25,7 +25,7 @@ public class TouchManagerLevel : MonoBehaviour
                 if (hit.collider != null)
                 {
                     Note noteComponent = hit.collider.GetComponent<Note>();
-                    if (noteComponent != null)
+                    if (noteComponent != null )
                     {
                         noteComponent.Hit();
                     }

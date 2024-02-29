@@ -23,7 +23,9 @@ public class GameControl : MonoBehaviour
     public static float lastSpawnTime;
 
     public static int notesPassed;
+    public static int currentRowNumber;
 
+    public static int[] notePositionXY;
     public static List<float> spawns = new List<float>();
 
     private void Awake()
@@ -33,6 +35,7 @@ public class GameControl : MonoBehaviour
         lastNoteId = 0;
         moving = true;
         Instance = this;
+        currentRowNumber = -1;
     }
 
 
@@ -87,7 +90,6 @@ public class GameControl : MonoBehaviour
 
         lastSpawnedY = spawnHeight;
         lastSpawnTime = -MidiFileInfo.shortestNoteSec;
-
     }
 
 
@@ -124,8 +126,10 @@ public class GameControl : MonoBehaviour
 
                     else
                     {
-                        Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
+                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
                     }
+
+                    lastSpawned.rowNumber = currentNote;
                 }
                 // ctyri noty na radek, jedna visible
 
@@ -179,11 +183,11 @@ public class GameControl : MonoBehaviour
 
     private int StarsScene()
     {
-        double percent = (double)MidiFileInfo.timeStamps.Count / Scoreboard.scorepoints;
+        double percent = (double)Scoreboard.scorepoints / MidiFileInfo.timeStamps.Count;
 
-        if (percent == 1) return 1;
-        if (2.0 / 3.0 <= percent && percent < 1) return 1;
-        if (1.0 / 3.0 <= percent && percent < 2.0 / 3.0) return 1;
+        if (percent == 1) return 3;
+        if (2.0 / 3.0 <= percent && percent < 1) return 2;
+        if (1.0 / 4.0 <= percent && percent < 2.0 / 3.0) return 1;
         else return 1;
     }
 }

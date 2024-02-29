@@ -11,7 +11,9 @@ public class Note : MonoBehaviour
     private Rigidbody2D rb;
     private Renderer rendererr;
     private BoxCollider2D boxcollider;
-    private bool touched;
+    public bool touched;
+    public int rowNumber;
+
     private SpriteRenderer spriteRenderer;
     //SpriteRenderer spriteRenderer;
 
@@ -42,12 +44,10 @@ public class Note : MonoBehaviour
         if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
         {
             Destroy(gameObject);
+
             if (visible) GameControl.notesPassed++;
-            Debug.Log("passed " + GameControl.notesPassed);
-            Debug.Log("all notes " + MidiFileInfo.timeStamps.Count);
             if (GameControl.notesPassed == MidiFileInfo.timeStamps.Count)
             {
-                Debug.Log("stop game");
                 GameControl.Instance.StopGame();
             }
         }
@@ -68,8 +68,15 @@ public class Note : MonoBehaviour
 
     public void Hit()
     {
-        if (!visible) WrongNote();
-        else CorrectNote(); 
+        Debug.Log("Hit method called!");
+        Debug.Log("current " + GameControl.currentRowNumber);
+        Debug.Log("row " + rowNumber);
+
+        if (rowNumber > GameControl.currentRowNumber)
+        {
+            if (!visible) WrongNote();
+            else CorrectNote();
+        }
     }
 
     private void WrongNote()
@@ -87,6 +94,8 @@ public class Note : MonoBehaviour
             spriteRenderer.color = Color.grey;
 
             Scoreboard.Instance.ScoreUp();
+
+            GameControl.currentRowNumber = rowNumber;
 
             touched = true;
         }
