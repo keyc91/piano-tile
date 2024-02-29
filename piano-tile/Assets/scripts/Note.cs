@@ -18,7 +18,6 @@ public class Note : MonoBehaviour
     private bool isMouseClicked;
     public bool visible;
 
-
     void Start()
     {
         touched = false;
@@ -43,6 +42,14 @@ public class Note : MonoBehaviour
         if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
         {
             Destroy(gameObject);
+            if (visible) GameControl.notesPassed++;
+            Debug.Log("passed " + GameControl.notesPassed);
+            Debug.Log("all notes " + MidiFileInfo.timeStamps.Count);
+            if (GameControl.notesPassed == MidiFileInfo.timeStamps.Count)
+            {
+                Debug.Log("stop game");
+                GameControl.Instance.StopGame();
+            }
         }
 
         if (transform.position.y <= (-GameControl.noteHeight * 3 / 2) && touched == false && Time.timeScale != 0f)

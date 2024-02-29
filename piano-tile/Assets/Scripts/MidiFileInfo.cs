@@ -16,6 +16,7 @@ public class MidiFileInfo : MonoBehaviour
 
     private void Start()
     {
+        timeStamps.Clear();
         LoadMidiFile();
     }
 

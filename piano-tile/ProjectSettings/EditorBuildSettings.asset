@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/one star.unity
     guid: 4a9f7ae135ea0354aaf3c2d9b10ec0bf
+  - enabled: 1
+    path: Assets/Scenes/levels menu.unity
+    guid: 04bbd67ff27dec04c9227de9f8df33a1
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

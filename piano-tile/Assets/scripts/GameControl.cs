@@ -22,10 +22,13 @@ public class GameControl : MonoBehaviour
     private int lastNoteId;
     public static float lastSpawnTime;
 
+    public static int notesPassed;
+
     public static List<float> spawns = new List<float>();
 
     private void Awake()
     {
+        notesPassed = 0;
         spawns.Clear();
         lastNoteId = 0;
         moving = true;
@@ -37,7 +40,6 @@ public class GameControl : MonoBehaviour
     {
         SetDataForNoteGeneration();
         currentNote = 0;
-        Debug.Log("note 0");
     }
 
     void Update()
@@ -118,7 +120,6 @@ public class GameControl : MonoBehaviour
                     {
                         lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
                         lastSpawned.visible = true;
-                        Debug.Log(rnd);
                     }
 
                     else
@@ -135,7 +136,6 @@ public class GameControl : MonoBehaviour
 
             else foreach (float spawnPosition in spawns)
                 {
-                    Debug.Log("Spawning invidible");
                     lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
                     //Debug.Log("invisible");
                 }
@@ -150,7 +150,7 @@ public class GameControl : MonoBehaviour
     public void StopGame()
     {
         moving = false;
-        TouchManager.Instance.allowTouchInput = false;
+        TouchManagerLevel.Instance.allowTouchInput = false;
         int scene = StarsScene();
         StartCoroutine(DelayedTransition(scene));
     }

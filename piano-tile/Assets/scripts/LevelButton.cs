@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    private void OnMouseDown()
+    public static LevelButton Instance;
+
+    void Start()
     {
-        // SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
-        SceneManager.LoadScene(0);
+        Button yourButton = GetComponent<Button>();
+        if (yourButton != null)
+        {
+            yourButton.onClick.AddListener(OnClick);
+        }
     }
 
-    /*public void Hit()
+    public void OnClick()
     {
-        // SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
         SceneManager.LoadScene(0);
-
-    }*/
+    }
 }
