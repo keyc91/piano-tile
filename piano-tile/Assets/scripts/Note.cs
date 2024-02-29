@@ -16,7 +16,7 @@ public class Note : MonoBehaviour
     //SpriteRenderer spriteRenderer;
 
     private bool isMouseClicked;
-    public bool visible = false;
+    public bool visible;
 
 
     void Start()
@@ -52,7 +52,11 @@ public class Note : MonoBehaviour
                 WrongNote();
             }
         }
-        // smaze notu mimo obrazovku
+
+        if (GameControl.moving == false)
+        {
+            rb.velocity = new Vector2(0f, 0f);
+        }
     }
 
     public void Hit()

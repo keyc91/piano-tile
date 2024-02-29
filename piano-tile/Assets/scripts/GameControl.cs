@@ -11,37 +11,45 @@ public class GameControl : MonoBehaviour
     public Note notePrefab;
     public static float noteHeight;
     private static float noteWidth;
+    public static bool moving;
 
     public Note lastSpawned;
     public float lastSpawnedY;
 
     public static Vector3 noteLocalScale;
-    public static int currentNote = 0;
+    public static int currentNote;
 
-    private int lastNoteId = 0;
+    private int lastNoteId;
     public static float lastSpawnTime;
 
     public static List<float> spawns = new List<float>();
 
     private void Awake()
     {
+        spawns.Clear();
+        lastNoteId = 0;
+        moving = true;
         Instance = this;
     }
+
 
     void Start()
     {
         SetDataForNoteGeneration();
+        currentNote = 0;
+        Debug.Log("note 0");
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (Mathf.Approximately(Time.time, lastSpawnTime + MidiFileInfo.shortestNoteSec))
+        float currentTime = (float)Time.timeSinceLevelLoad;
+        if (Mathf.Abs(currentTime - (lastSpawnTime + MidiFileInfo.shortestNoteSec)) < 0.1f)
         {
-            lastSpawnTime = Time.time;
+            lastSpawnTime = currentTime;
             SpawnNotes();
         }
     }
-    
+
 
     public void SetDataForNoteGeneration()
     {
@@ -80,9 +88,13 @@ public class GameControl : MonoBehaviour
 
     }
 
+
+
+
+
     private void SpawnNotes()
     {
-        if (lastSpawned !=  null)
+        if (lastSpawned != null)
         {
             lastSpawnedY = lastSpawned.transform.position.y;
         }
@@ -90,7 +102,7 @@ public class GameControl : MonoBehaviour
 
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
-            if (Mathf.Approximately(lastSpawnTime, MidiFileInfo.timeStamps[currentNote]))
+            if (Mathf.Abs(lastSpawnTime - MidiFileInfo.timeStamps[currentNote]) < 0.1f)
             {
                 int rnd = Random.Range(0, spawns.Count);
 
@@ -106,34 +118,72 @@ public class GameControl : MonoBehaviour
                     {
                         lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
                         lastSpawned.visible = true;
-                        //Debug.Log("visible note");
+                        Debug.Log(rnd);
                     }
 
                     else
                     {
                         Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
-                        //Debug.Log("invisible buddies");
                     }
                 }
                 // ctyri noty na radek, jedna visible
-                
+
+                lastSpawnTime = MidiFileInfo.timeStamps[currentNote];
                 lastNoteId = rnd;
                 currentNote++;
             }
 
             else foreach (float spawnPosition in spawns)
-            {
-                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
+                {
+                    Debug.Log("Spawning invidible");
+                    lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
                     //Debug.Log("invisible");
-            }
+                }
             // ctyri noty na radek, vsechny invisible
         }
     }
 
+
+
+
+
     public void StopGame()
     {
-        Time.timeScale = 0;
-        Debug.Log("Game stopped");
+        moving = false;
         TouchManager.Instance.allowTouchInput = false;
+        int scene = StarsScene();
+        StartCoroutine(DelayedTransition(scene));
+    }
+
+    IEnumerator DelayedTransition(int scene)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        LevelLoader.Instance.animator.SetTrigger("Scene");
+        StartCoroutine(DelayedLoadScene(scene));
+    }
+
+    IEnumerator DelayedLoadScene(int scene)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        LoadScene(scene);
+    }
+
+    private void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+
+
+
+
+    private int StarsScene()
+    {
+        double percent = (double)MidiFileInfo.timeStamps.Count / Scoreboard.scorepoints;
+
+        if (percent == 1) return 1;
+        if (2.0 / 3.0 <= percent && percent < 1) return 1;
+        if (1.0 / 3.0 <= percent && percent < 2.0 / 3.0) return 1;
+        else return 1;
     }
 }

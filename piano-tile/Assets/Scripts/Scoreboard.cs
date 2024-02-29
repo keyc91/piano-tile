@@ -7,11 +7,12 @@ using TMPro;
 public class Scoreboard : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    public int scorepoints;
+    public static int scorepoints;
     public static Scoreboard Instance;
 
     void Awake()
     {
+        scorepoints = 0;
         Instance = this;
         SetUp();
     }
