@@ -156,25 +156,32 @@ public class GameControl : MonoBehaviour
         moving = false;
         TouchManagerLevel.Instance.allowTouchInput = false;
         int scene = StarsScene();
-        StartCoroutine(DelayedTransition(scene));
+        PlayerPrefs.SetInt("CurrentStars", scene);
+
+        if (PlayerPrefs.HasKey("StarsLevel1"))
+        {
+            if (scene > PlayerPrefs.GetInt("StarsLevel1")) PlayerPrefs.SetInt("StarsLevel1", scene);
+        }
+
+        else
+        {
+            PlayerPrefs.SetInt("StarsLevel1", scene);
+        }
+
+        StartCoroutine(DelayedTransition());
     }
 
-    IEnumerator DelayedTransition(int scene)
+    IEnumerator DelayedTransition()
     {
         yield return new WaitForSecondsRealtime(1f);
         LevelLoader.Instance.animator.SetTrigger("Scene");
-        StartCoroutine(DelayedLoadScene(scene));
+        StartCoroutine(DelayedLoadScene());
     }
 
-    IEnumerator DelayedLoadScene(int scene)
+    IEnumerator DelayedLoadScene()
     {
         yield return new WaitForSecondsRealtime(1f);
-        LoadScene(scene);
-    }
-
-    private void LoadScene(int scene)
-    {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(1);
     }
 
 

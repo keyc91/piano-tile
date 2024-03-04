@@ -264,6 +264,10 @@ PrefabInstance:
       propertyPath: m_text
       value: levels
       objectReference: {fileID: 0}
+    - target: {fileID: 3428498232302767412, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6687502869594594212, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -404,6 +408,7 @@ GameObject:
   - component: {fileID: 1766103700}
   - component: {fileID: 1766103699}
   - component: {fileID: 1766103698}
+  - component: {fileID: 1766103702}
   - component: {fileID: 1766103701}
   m_Layer: 0
   m_Name: Video
@@ -420,7 +425,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766103697}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 1691311ff823e9d4493da1a4daa043f8, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: e986fa2cb99f8aa4d9cca665931b1057, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -430,9 +435,9 @@ VideoPlayer:
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 3
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1.35
+  m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
   - {fileID: 0}
@@ -614,6 +619,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1766103702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766103697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f669e562d71bfd5439028e18e02093df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vp: {fileID: 0}
 --- !u!1 &1818860275
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +668,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.20000002, g: 0.20000002, b: 0.20000002, a: 0}
+  m_BackGroundColor: {r: 0.1764706, g: 0.1764706, b: 0.1764706, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -782,6 +800,10 @@ PrefabInstance:
     - target: {fileID: 2751681537195374039, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_text
       value: try again?
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428498232302767412, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6687502869594594212, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_Pivot.x
