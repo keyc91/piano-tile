@@ -41,7 +41,7 @@ public class Note : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight * 3/2) 
+        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
         {
             Destroy(gameObject);
 
@@ -52,7 +52,7 @@ public class Note : MonoBehaviour
             }
         }
 
-        if (transform.position.y <= (-GameControl.noteHeight * 3 / 2) && touched == false && Time.timeScale != 0f)
+        if (transform.position.y <= (-GameControl.noteHeight * 5/ 2) && touched == false && Time.timeScale != 0f)
         {
             if (visible) 
             {

@@ -349,12 +349,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6720017680388917807, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720017680388917807, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720017680388917807, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000020266
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6720017680388917807, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -546
+      value: -294
       objectReference: {fileID: 0}
     - target: {fileID: 7371862636951809368, guid: 0c5207a0bd030af4182be95a53cbc3bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
