@@ -41,7 +41,7 @@ public class Note : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
+        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight * 3/2) 
         {
             Destroy(gameObject);
 
