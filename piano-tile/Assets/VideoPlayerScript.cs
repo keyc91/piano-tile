@@ -7,7 +7,7 @@ using System.IO;
 public class VideoPlayerScript : MonoBehaviour
 {
     public VideoPlayer vp;
-    void Start()
+    void Awake()
     {
         VideoSwitch();
     }

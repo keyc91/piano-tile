@@ -8,6 +8,8 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl Instance;
 
+    public static int currentLevelIndex;
+
     public Note notePrefab;
     public static float noteHeight;
     private static float noteWidth;
@@ -36,6 +38,7 @@ public class GameControl : MonoBehaviour
         moving = true;
         Instance = this;
         currentRowNumber = -1;
+        currentLevelIndex = PlayerPrefs.GetInt("CurrentLevel");
     }
 
 
@@ -158,14 +161,14 @@ public class GameControl : MonoBehaviour
         int scene = StarsScene();
         PlayerPrefs.SetInt("CurrentStars", scene);
 
-        if (PlayerPrefs.HasKey("StarsLevel1"))
+        if (PlayerPrefs.HasKey("Level" + currentLevelIndex + "Stars"))
         {
-            if (scene > PlayerPrefs.GetInt("StarsLevel1")) PlayerPrefs.SetInt("StarsLevel1", scene);
+            if (scene > PlayerPrefs.GetInt("Level" + currentLevelIndex + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelIndex + "Stars", scene);
         }
 
         else
         {
-            PlayerPrefs.SetInt("StarsLevel1", scene);
+            PlayerPrefs.SetInt("Level" + currentLevelIndex + "Stars", scene);
         }
 
         StartCoroutine(DelayedTransition());

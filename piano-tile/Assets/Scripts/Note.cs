@@ -68,10 +68,6 @@ public class Note : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log("Hit method called!");
-        Debug.Log("current " + GameControl.currentRowNumber);
-        Debug.Log("row " + rowNumber);
-
         if (rowNumber > GameControl.currentRowNumber)
         {
             if (!visible) WrongNote();

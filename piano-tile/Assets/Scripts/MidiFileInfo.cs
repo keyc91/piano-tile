@@ -22,7 +22,7 @@ public class MidiFileInfo : MonoBehaviour
 
     private void LoadMidiFile()
     {
-        string filePath = Path.Combine(Application.dataPath, "Midi/piano.mid");
+        string filePath = Path.Combine(Application.dataPath, "Midi/midi " + PlayerPrefs.GetInt("CurrentLevel") + ".mid");
         midiFile = MidiFile.Read(filePath);
 
         IEnumerable<Melanchall.DryWetMidi.Interaction.Note> notes = midiFile.GetNotes();
