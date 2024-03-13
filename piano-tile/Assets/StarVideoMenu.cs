@@ -19,7 +19,7 @@ public class StarVideoMenu : MonoBehaviour
     {
         string parentsName = transform.parent.gameObject.name;
         currentStars = PlayerPrefs.GetInt("Level" + parentsName + "Stars");
-        Debug.Log(parentsName);
+        Debug.Log(parentsName + "ma hvezd" + currentStars);
     }
 
     void VideoSwitch()

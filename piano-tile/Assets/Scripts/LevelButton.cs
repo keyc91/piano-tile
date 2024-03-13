@@ -19,6 +19,13 @@ public class LevelButton : MonoBehaviour
 
     public void OnClick()
     {
+        LevelLoader.Instance.animator.SetTrigger("Scene");
+        StartCoroutine(DelayedLoadScene());
+    }
+
+    IEnumerator DelayedLoadScene()
+    {
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(2);
     }
 }

@@ -21,6 +21,13 @@ public class LevelsLevelButton : MonoBehaviour
     public void OnClick()
     {
         PlayerPrefs.SetInt("CurrentLevel", int.Parse(transform.parent.gameObject.name));
-        SceneManager.LoadScene(transform.parent.gameObject.name);
+        LevelLoader.Instance.animator.SetTrigger("Scene");
+        StartCoroutine(DelayedLoadScene());
+    }
+
+    IEnumerator DelayedLoadScene()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(2);
     }
 }

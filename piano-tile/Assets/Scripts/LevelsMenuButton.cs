@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelsMenuButton : MonoBehaviour
 {
-    public static LevelButton Instance;
+    public static LevelsMenuButton Instance;
 
     void Start()
     {
@@ -19,6 +19,13 @@ public class LevelsMenuButton : MonoBehaviour
 
     public void OnClick()
     {
-        SceneManager.LoadScene(2);
+        LevelLoader.Instance.animator.SetTrigger("Scene");
+        StartCoroutine(DelayedLoadScene());
+    }
+
+    IEnumerator DelayedLoadScene()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(3);
     }
 }
