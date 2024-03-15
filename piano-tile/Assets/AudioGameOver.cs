@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class AudioGameOver : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public AudioSource audioSource;
+    private int currentStars;
+    // Update is called once per frame
+    void Awake()
     {
-        
+        PlayAudio();
     }
 
-    // Update is called once per frame
-    void Update()
+    void PlayAudio()
     {
-        
+        currentStars = PlayerPrefs.GetInt("CurrentStars");
+        string path = "Audio/" + currentStars + "starsover";
+        audioSource.clip = Resources.Load<AudioClip>(path);
+        audioSource.Play();
     }
+
 }

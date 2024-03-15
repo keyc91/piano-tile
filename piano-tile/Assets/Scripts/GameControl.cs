@@ -183,7 +183,7 @@ public class GameControl : MonoBehaviour
 
     IEnumerator DelayedLoadScene()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(1 f);
         SceneManager.LoadScene(1);
     }
 

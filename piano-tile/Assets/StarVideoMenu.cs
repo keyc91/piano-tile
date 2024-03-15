@@ -13,6 +13,7 @@ public class StarVideoMenu : MonoBehaviour
 
     void Awake()
     {
+        rawImage = GetComponent<RawImage>();
         FindParent();
         VideoSwitch();
     }
