@@ -12,6 +12,7 @@ public class MidiFileInfo : MonoBehaviour
     public MidiFile midiFile;
     public static float speed;
     public static List<float> timeStamps = new List<float>();
+    public static List<Melanchall.DryWetMidi.Interaction.Note> notes;
     public static float shortestNoteSec;
 
     private void Start()
@@ -25,7 +26,7 @@ public class MidiFileInfo : MonoBehaviour
         string filePath = Path.Combine(Application.dataPath, "Resources/Midi/midi" + PlayerPrefs.GetInt("CurrentLevel") + ".mid");
         midiFile = MidiFile.Read(filePath);
 
-        IEnumerable<Melanchall.DryWetMidi.Interaction.Note> notes = midiFile.GetNotes();
+        notes = midiFile.GetNotes().ToList();
         TempoMap tempoMap = midiFile.GetTempoMap();
         MetricTimeSpan shortestNote = new TimeSpan(1, 0, 0, 0);
 

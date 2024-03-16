@@ -13,6 +13,7 @@ public class Note : MonoBehaviour
     private BoxCollider2D boxcollider;
     public bool touched;
     public int rowNumber;
+    public AudioSource audioSource;
 
     private SpriteRenderer spriteRenderer;
     //SpriteRenderer spriteRenderer;
@@ -22,6 +23,7 @@ public class Note : MonoBehaviour
 
     void Start()
     {
+        AudioSource();
         touched = false;
         rb = GetComponent<Rigidbody2D>();
         rendererr = GetComponent<Renderer>();
@@ -41,7 +43,7 @@ public class Note : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight/2) 
+        if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight) 
         {
             Destroy(gameObject);
 
@@ -77,6 +79,10 @@ public class Note : MonoBehaviour
 
     private void WrongNote()
     {
+        audioSource.clip = Resources.Load<AudioClip>("Piano/27");
+        audioSource.Play();
+        StartCoroutine(TurnOffAfterDelay());
+
         spriteRenderer.color = Color.black;
 
         rendererr.enabled = true;
@@ -87,6 +93,9 @@ public class Note : MonoBehaviour
     {
         if (!touched)
         {
+            audioSource.Play();
+            StartCoroutine(TurnOffAfterDelay());
+
             spriteRenderer.color = Color.grey;
 
             Scoreboard.Instance.ScoreUp();
@@ -96,6 +105,19 @@ public class Note : MonoBehaviour
             touched = true;
         }
     }
-}
 
+    private void AudioSource()
+    {
+        audioSource = GetComponent<AudioSource>();
+        int noteNumber = MidiFileInfo.notes[rowNumber].NoteNumber;
+        audioSource.clip = Resources.Load<AudioClip>("Piano/" + noteNumber);
+
+    }
+
+    private IEnumerator TurnOffAfterDelay()
+    {
+        yield return new WaitForSeconds(MidiFileInfo.shortestNoteSec + 0.2f);
+        audioSource.Stop();
+    }
+}
 
