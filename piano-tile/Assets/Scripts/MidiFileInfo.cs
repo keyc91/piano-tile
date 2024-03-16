@@ -9,42 +9,49 @@ using System.Linq;
 
 public class MidiFileInfo : MonoBehaviour
 {
+    public static MidiFileInfo Instance;
     public MidiFile midiFile;
     public static float speed;
     public static List<float> timeStamps = new List<float>();
-    public static List<Melanchall.DryWetMidi.Interaction.Note> notes;
+    public static List<Melanchall.DryWetMidi.Interaction.Note> notes = new List<Melanchall.DryWetMidi.Interaction.Note>();
     public static float shortestNoteSec;
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
+        notes.Clear();
         timeStamps.Clear();
         LoadMidiFile();
     }
 
     private void LoadMidiFile()
     {
-        string filePath = Path.Combine(Application.dataPath, "Resources/Midi/midi" + PlayerPrefs.GetInt("CurrentLevel") + ".mid");
+        // nacteni midi filu podle levelu
+        string filePath = Path.Combine(Application.dataPath, "Resources/Midi/" + PlayerPrefs.GetString("CurrentLevel") + ".mid");
         midiFile = MidiFile.Read(filePath);
 
+        // nacteni not do listu
         notes = midiFile.GetNotes().ToList();
-        TempoMap tempoMap = midiFile.GetTempoMap();
-        MetricTimeSpan shortestNote = new TimeSpan(1, 0, 0, 0);
 
+
+        TempoMap tempoMap = midiFile.GetTempoMap();
+        MetricTimeSpan firstNote = new TimeSpan(1, 0, 0, 0);
+
+        // nejkratsi nota, k 
+        firstNote = notes[0].LengthAs<MetricTimeSpan>(tempoMap);
+        shortestNoteSec = (firstNote.TotalMicroseconds / 1_000_000.0f);
+        Debug.Log(shortestNoteSec);
+
+        // list s timestamps
         foreach (Melanchall.DryWetMidi.Interaction.Note note in notes) 
         {
-            if (shortestNote > note.LengthAs<MetricTimeSpan>(tempoMap))
-            {
-                shortestNote = note.LengthAs<MetricTimeSpan>(tempoMap);
-            }
-
-            Debug.Log(note.NoteNumber);
             float timestamp = (note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1_000_000.0f);
-
-            shortestNoteSec = (shortestNote.TotalMicroseconds / 1_000_000.0f);
-            // Debug.Log($"timestamp {timestamp}");
-            timeStamps.Add(timestamp + 0.5f);
+            timeStamps.Add(timestamp + shortestNoteSec);
         }
 
-        speed = GameControl.noteHeight / (float) shortestNote.TotalSeconds;
+        // vypocet rychlosti not
+        speed = GameControl.noteHeight / (float) firstNote.TotalSeconds;
+
+        Debug.Log("notes " + notes.Count);
     }
 }

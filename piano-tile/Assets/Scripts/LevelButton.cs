@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class LevelButton : MonoBehaviour
 {
     public static LevelButton Instance;
-    public int scene;
+    public string scene;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class LevelButton : MonoBehaviour
 
     public void OnClick()
     {
-        PlayerPrefs.SetInt("CurrentLevel", scene);
+        PlayerPrefs.SetString("CurrentLevel", scene);
         LevelLoader.Instance.animator.SetTrigger("Scene");
         StartCoroutine(DelayedLoadScene());
     }

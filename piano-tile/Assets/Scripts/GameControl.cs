@@ -8,7 +8,7 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl Instance;
 
-    public static int currentLevelIndex;
+    public static string currentLevelName;
 
     public Note notePrefab;
     public static float noteHeight;
@@ -26,24 +26,27 @@ public class GameControl : MonoBehaviour
 
     public static int notesPassed;
     public static int currentRowNumber;
+    private float epsilon;
 
     public static int[] notePositionXY;
     public static List<float> spawns = new List<float>();
 
     private void Awake()
     {
-        notesPassed = 0;
-        spawns.Clear();
-        lastNoteId = 0;
-        moving = true;
         Instance = this;
-        currentRowNumber = -1;
-        currentLevelIndex = PlayerPrefs.GetInt("CurrentLevel");
+        currentNote = 0;
+        notesPassed = 0;
+        SetDataForNoteGeneration();
     }
 
 
     void Start()
     {
+        moving = true;
+        currentLevelName = PlayerPrefs.GetString("CurrentLevel");
+        currentRowNumber = -1;
+        spawns.Clear();
+        lastNoteId = 0;
         SetDataForNoteGeneration();
         currentNote = 0;
     }
@@ -51,7 +54,7 @@ public class GameControl : MonoBehaviour
     void Update()
     {
         float currentTime = (float)Time.timeSinceLevelLoad;
-        if (Mathf.Abs(currentTime - (lastSpawnTime + MidiFileInfo.shortestNoteSec)) < 0.1f)
+        if (Mathf.Abs(currentTime - (lastSpawnTime + MidiFileInfo.shortestNoteSec)) < 0.15f)
         {
             lastSpawnTime = currentTime;
             SpawnNotes();
@@ -79,7 +82,7 @@ public class GameControl : MonoBehaviour
                noteWidth / noteSpriteRenderer.bounds.size.x * noteSpriteRenderer.transform.localScale.x,
                noteHeight / noteSpriteRenderer.bounds.size.y * noteSpriteRenderer.transform.localScale.y, 1);
 
-        var spawnHeight = (topRightWorldPoint.y * 5) / 4;
+        var spawnHeight = ((topRightWorldPoint.y * 5) / 4);
 
         // spawn positions x axis
         float leftSpawn = -noteWidth * 3 / 2;
@@ -109,8 +112,9 @@ public class GameControl : MonoBehaviour
 
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
-            if (Mathf.Abs(lastSpawnTime - MidiFileInfo.timeStamps[currentNote]) < 0.1f)
+            if (Mathf.Abs(MidiFileInfo.timeStamps[currentNote] - lastSpawnTime) < 0.15f)
             {
+                lastSpawnTime = MidiFileInfo.timeStamps[currentNote] - lastSpawnTime;
                 int rnd = Random.Range(0, spawns.Count);
 
                 // zmena spawn x pozice oproti poslednim note
@@ -143,10 +147,10 @@ public class GameControl : MonoBehaviour
 
             // ctyri noty na radek, vsechny invisible
             else foreach (float spawnPosition in spawns)
-                {
-                    lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
-                    //Debug.Log("invisible");
-                }
+            {
+                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
+                //Debug.Log("invisible");
+            }
         }
     }
 
@@ -161,14 +165,14 @@ public class GameControl : MonoBehaviour
         int scene = StarsScene();
         PlayerPrefs.SetInt("CurrentStars", scene);
 
-        if (PlayerPrefs.HasKey("Level" + currentLevelIndex + "Stars"))
+        if (PlayerPrefs.HasKey("Level" + currentLevelName + "Stars"))
         {
-            if (scene > PlayerPrefs.GetInt("Level" + currentLevelIndex + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelIndex + "Stars", scene);
+            if (scene > PlayerPrefs.GetInt("Level" + currentLevelName + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", scene);
         }
 
         else
         {
-            PlayerPrefs.SetInt("Level" + currentLevelIndex + "Stars", scene);
+            PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", scene);
         }
 
         StartCoroutine(DelayedTransition());
