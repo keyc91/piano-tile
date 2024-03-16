@@ -36,6 +36,7 @@ public class MidiFileInfo : MonoBehaviour
                 shortestNote = note.LengthAs<MetricTimeSpan>(tempoMap);
             }
 
+            Debug.Log(note.NoteNumber);
             float timestamp = (note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1_000_000.0f);
 
             shortestNoteSec = (shortestNote.TotalMicroseconds / 1_000_000.0f);
