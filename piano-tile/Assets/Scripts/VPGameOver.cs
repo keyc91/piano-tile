@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using System.IO;
 
-public class VideoPlayerScript : MonoBehaviour
+public class VPGameOver : MonoBehaviour
 {
     public VideoPlayer vp;
     void Awake()

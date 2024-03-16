@@ -81,7 +81,6 @@ public class Note : MonoBehaviour
     {
         audioSource.clip = Resources.Load<AudioClip>("Piano/27");
         audioSource.Play();
-        StartCoroutine(TurnOffAfterDelay());
 
         spriteRenderer.color = Color.black;
 
@@ -116,7 +115,7 @@ public class Note : MonoBehaviour
 
     private IEnumerator TurnOffAfterDelay()
     {
-        yield return new WaitForSeconds(MidiFileInfo.shortestNoteSec + 0.2f);
+        yield return new WaitForSeconds(MidiFileInfo.shortestNoteSec + 0.1f);
         audioSource.Stop();
     }
 }

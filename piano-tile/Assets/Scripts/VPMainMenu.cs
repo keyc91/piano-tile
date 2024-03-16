@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class VideoPlayerMainMenu : MonoBehaviour
+public class VPMainMenu : MonoBehaviour
 {
     public VideoPlayer vp;
 

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchManagerLevel : MonoBehaviour
+public class TouchManager : MonoBehaviour
 {
     public bool allowTouchInput;
-    public static TouchManagerLevel Instance;
+    public static TouchManager Instance;
 
     void Awake()
     {

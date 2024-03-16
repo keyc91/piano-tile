@@ -157,7 +157,7 @@ public class GameControl : MonoBehaviour
     public void StopGame()
     {
         moving = false;
-        TouchManagerLevel.Instance.allowTouchInput = false;
+        TouchManager.Instance.allowTouchInput = false;
         int scene = StarsScene();
         PlayerPrefs.SetInt("CurrentStars", scene);
 

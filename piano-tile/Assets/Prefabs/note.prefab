@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.19, y: -3.48, z: 0}
-  m_LocalScale: {x: 1.4055473, y: 2.5, z: 1}
+  m_LocalScale: {x: 1.1842105, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touched: 0
   rowNumber: 0
+  audioSource: {fileID: 0}
   visible: 0
 --- !u!50 &4573892781293479174
 Rigidbody2D:

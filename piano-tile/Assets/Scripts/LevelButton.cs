@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;  
 
 
-public class LevelsLevelButton : MonoBehaviour
+public class LevelButton : MonoBehaviour
 {
-    public static LevelsLevelButton Instance;
+    public static LevelButton Instance;
 
     void Start()
     {
