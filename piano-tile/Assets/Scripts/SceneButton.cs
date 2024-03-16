@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelButton : MonoBehaviour
+public class SceneButton : MonoBehaviour
 {
-    public static LevelButton Instance;
+    public static SceneButton Instance;
+    public string scene;
 
     void Start()
     {
@@ -26,6 +27,6 @@ public class LevelButton : MonoBehaviour
     IEnumerator DelayedLoadScene()
     {
         yield return new WaitForSecondsRealtime(1f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(scene);
     }
 }

@@ -15,18 +15,18 @@ public class VideoPlayerMainMenu : MonoBehaviour
 
     void Intro()
     {
-        vp.url = (Application.dataPath + "/Video/intro.mp4");
+        vp.url = (Application.dataPath + "/Resources/Video/intro.mp4");
         vp.Prepare();
         vp.Play();
     }
 
     void Loop(VideoPlayer source)
     {
-        Debug.Log("loop reached");
         vp.loopPointReached -= Loop;
-        vp.url = (Application.dataPath + "/Video/intro loop.mp4");
-        vp.isLooping = true;
+        vp.url = (Application.dataPath + "/Resources/Video/intro loop.mp4");
+
         vp.Prepare();
         vp.Play();
+        vp.isLooping = true;
     }
 }
