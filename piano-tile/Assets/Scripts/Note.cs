@@ -93,7 +93,11 @@ public class Note : MonoBehaviour
         if (!touched)
         {
             audioSource.Play();
-            StartCoroutine(TurnOffAfterDelay());
+
+            if (rowNumber != MidiFileInfo.timeStamps.Count - 1)
+            {
+                StartCoroutine(TurnOffAfterDelay());
+            }
 
             spriteRenderer.color = Color.grey;
 

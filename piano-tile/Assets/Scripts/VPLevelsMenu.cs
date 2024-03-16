@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 
-public class StarVideoMenu : MonoBehaviour
+public class VPLevelsMenu : MonoBehaviour
 {
     public VideoPlayer vp;
     private string parentsName;
