@@ -22,7 +22,7 @@ public class VPLevelsMenu : MonoBehaviour
     {
         parentsName = transform.parent.gameObject.name;
         currentStars = PlayerPrefs.GetInt("Level" + parentsName + "Stars");
-        Debug.Log(parentsName + "ma hvezd" + currentStars);
+        // Debug.Log(parentsName + "ma hvezd" + currentStars);
     }
 
     void VideoSwitch()

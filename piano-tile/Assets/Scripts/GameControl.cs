@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,119 +8,85 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl Instance;
 
-    public static string currentLevelName;
-
-    public Note notePrefab;
+    // edited z NoteResize
     public static float noteHeight;
-    private static float noteWidth;
-    public static bool moving;
-
-    public Note lastSpawned;
-    public float lastSpawnedY;
-
-    public static Vector3 noteLocalScale;
-    public static int currentNote;
-
-    private int lastNoteId;
-    public static float lastSpawnTime;
-
-    public static int notesPassed;
-    public static int currentRowNumber;
-    private float epsilon;
-
-    public static int[] notePositionXY;
     public static List<float> spawns = new List<float>();
 
-    private void Awake()
+    // vyuzivano Note scriptem
+    public static int notesPassed; // konec hry trigger
+    public static bool moving;
+    public static int currentRowNumber;
+
+
+    // kvuli instatiate
+    public Note notePrefab;
+
+    // spawn y pozice
+    private Note lastSpawned;
+    private float lastSpawnedY;
+
+    // zmena pozice x oproti minule
+    private int lastNoteId;
+
+    public static int currentNote;
+    private float epsilon;
+
+    // cas v game control
+    private float spawnCallTime;
+
+    private void Start()
     {
         Instance = this;
+
+        // restart levelu
+        TouchManager.allowTouchInput = true;
+        currentRowNumber = -1;
+        lastNoteId = -1;
+        Debug.Log("last note id " + lastNoteId);
         currentNote = 0;
         notesPassed = 0;
-        SetDataForNoteGeneration();
-    }
-
-
-    void Start()
-    {
         moving = true;
-        currentLevelName = PlayerPrefs.GetString("CurrentLevel");
-        currentRowNumber = -1;
-        spawns.Clear();
-        lastNoteId = 0;
-        SetDataForNoteGeneration();
-        currentNote = 0;
+        lastSpawnedY = NoteResize.spawnHeight;
+        spawnCallTime = -MidiFileInfo.shortestNoteSec;
+
+        epsilon = 0.02f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        float currentTime = (float)Time.timeSinceLevelLoad;
-        if (Mathf.Abs(currentTime - (lastSpawnTime + MidiFileInfo.shortestNoteSec)) < 0.15f)
+        // 
+        float time = Time.timeSinceLevelLoad;
+        float timeDifference = time - (spawnCallTime + MidiFileInfo.shortestNoteSec);
+
+        if (Mathf.Abs(timeDifference) < epsilon)
         {
-            lastSpawnTime = currentTime;
+            spawnCallTime = spawnCallTime + MidiFileInfo.shortestNoteSec;
             SpawnNotes();
         }
     }
 
 
-    public void SetDataForNoteGeneration()
-    {
-        // pøizpùsobení velikosti na specifickou obrazovku
-        var topRight = new Vector2(Screen.width, Screen.height);
-        var topRightWorldPoint = Camera.main.ScreenToWorldPoint(topRight);
-        var bottomLeftWorldPoint = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        var screenWidth = topRightWorldPoint.x - bottomLeftWorldPoint.x;
-        var screenHeight = topRightWorldPoint.y - bottomLeftWorldPoint.y;
-
-        // vyska a delka not
-        noteHeight = screenHeight / 4;
-        noteWidth = screenWidth / 4;
-
-        var noteSpriteRenderer = notePrefab.GetComponent<SpriteRenderer>();
-
-        // zmena velikosti prefabu noty
-        notePrefab.transform.localScale = new Vector3(
-               noteWidth / noteSpriteRenderer.bounds.size.x * noteSpriteRenderer.transform.localScale.x,
-               noteHeight / noteSpriteRenderer.bounds.size.y * noteSpriteRenderer.transform.localScale.y, 1);
-
-        var spawnHeight = ((topRightWorldPoint.y * 5) / 4);
-
-        // spawn positions x axis
-        float leftSpawn = -noteWidth * 3 / 2;
-        float leftMiddleSpawn = -noteWidth / 2;
-        float rightMiddleSpawn = noteWidth / 2;
-        float rightSpawn = noteWidth * 3 / 2;
-        spawns.Add(leftMiddleSpawn);
-        spawns.Add(rightMiddleSpawn);
-        spawns.Add(leftSpawn);
-        spawns.Add(rightSpawn);
-
-        lastSpawnedY = spawnHeight;
-        lastSpawnTime = -MidiFileInfo.shortestNoteSec;
-    }
-
-
-
-
-
     private void SpawnNotes()
     {
-        // y souradnice aby noty navazovaly
-        if (lastSpawned != null)
-        {
-            lastSpawnedY = lastSpawned.transform.position.y;
-        }
-
+        // kontrola, ze nejsme na konci midi filu
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
-            if (Mathf.Abs(MidiFileInfo.timeStamps[currentNote] - lastSpawnTime) < 0.15f)
+            // odpovida cas timestampu jedne z not midifilu?
+            if (Mathf.Abs(spawnCallTime - MidiFileInfo.timeStamps[currentNote]) < epsilon)
             {
-                lastSpawnTime = MidiFileInfo.timeStamps[currentNote] - lastSpawnTime;
-                int rnd = Random.Range(0, spawns.Count);
+                //Debug.Log("went through spawn difference:" + (spawnCallTime - MidiFileInfo.timeStamps[currentNote]));
 
                 // zmena spawn x pozice oproti poslednim note
+                int rnd = Random.Range(0, spawns.Count);
                 while (lastNoteId == rnd)
                 {
                     rnd = Random.Range(0, spawns.Count);
+                }
+
+                // y souradnice posledniho radku not
+                if (lastSpawned != null)
+                {
+                    lastSpawnedY = lastSpawned.transform.position.y;
                 }
 
                 // ctyri noty na radek, jedna visible
@@ -140,46 +106,48 @@ public class GameControl : MonoBehaviour
                     lastSpawned.rowNumber = currentNote;
                 }
 
-                lastSpawnTime = MidiFileInfo.timeStamps[currentNote];
                 lastNoteId = rnd;
                 currentNote++;
             }
 
-            // ctyri noty na radek, vsechny invisible
-            else foreach (float spawnPosition in spawns)
+            // vytvori ctyri noty na radek, vsechny neviditelne
+            else
             {
-                lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
-                //Debug.Log("invisible");
+                // hodnota y posledniho spawnuteho radku
+                if (lastSpawned != null)
+                {
+                    lastSpawnedY = lastSpawned.transform.position.y;
+                }
+
+                // spawn radku
+                foreach (float spawnPosition in spawns)
+                {
+                    lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
+                }
             }
         }
     }
 
 
-
-
-
     public void StopGame()
     {
+        // zastavit vsechny gameobjects
         moving = false;
-        TouchManager.Instance.allowTouchInput = false;
-        int scene = StarsScene();
-        PlayerPrefs.SetInt("CurrentStars", scene);
+        TouchManager.allowTouchInput = false;
 
-        if (PlayerPrefs.HasKey("Level" + currentLevelName + "Stars"))
-        {
-            if (scene > PlayerPrefs.GetInt("Level" + currentLevelName + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", scene);
-        }
+        // pocet hvezdicek
+        int stars = StarsScene();
+        PlayerPrefs.SetInt("CurrentStars", stars);
+        PrefEdit(stars);
 
-        else
-        {
-            PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", scene);
-        }
-
+        // animace a zmena sceny
         StartCoroutine(DelayedTransition());
     }
 
+
     IEnumerator DelayedTransition()
     {
+        // pocka vterinu, spusti animaci
         yield return new WaitForSecondsRealtime(1f);
         LevelLoader.Instance.animator.SetTrigger("Scene");
         StartCoroutine(DelayedLoadScene());
@@ -187,21 +155,38 @@ public class GameControl : MonoBehaviour
 
     IEnumerator DelayedLoadScene()
     {
+        // pocka vterinu, nacte scene game over
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(1);
     }
 
 
+    private void PrefEdit(int stars)
+    {
+        string currentLevelName = PlayerPrefs.GetString("CurrentLevel");
 
+        // pokud uz je ulozena starsi hodnota poctu hvezd v player prefs, porovnat a pripadne prepsat
+        if (PlayerPrefs.HasKey("Level" + currentLevelName + "Stars"))
+        {
+            if (stars > PlayerPrefs.GetInt("Level" + currentLevelName + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", stars);
+        }
 
+        // pokud neni, ulozit novou
+        else
+        {
+            PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", stars);
+        }
+    }
 
     private int StarsScene()
     {
+        // uspesnost v procentech
         double percent = (double)Scoreboard.scorepoints / MidiFileInfo.timeStamps.Count;
 
+        // prepocet procent na pocet hvezd (po tretinach)
         if (percent == 1) return 3;
         if (2.0 / 3.0 <= percent && percent < 1) return 2;
-        if (1.0 / 4.0 <= percent && percent < 2.0 / 3.0) return 1;
-        else return 1;
+        if (1.0 / 3.0 <= percent && percent < 2.0 / 3.0) return 1;
+        else return 0;
     }
 }

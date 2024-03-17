@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class SceneButton : MonoBehaviour
 {
-    public static SceneButton Instance;
     public string scene;
 
     void Start()
     {
-        Button yourButton = GetComponent<Button>();
+        // nacteni buttonu
+        Button yourButton = GetComponent<Button>(); 
         if (yourButton != null)
         {
             yourButton.onClick.AddListener(OnClick);
@@ -20,7 +20,10 @@ public class SceneButton : MonoBehaviour
 
     public void OnClick()
     {
+        // trigger animace
         LevelLoader.Instance.animator.SetTrigger("Scene");
+
+        // spusteni sceny po uplynuti jedne vteriny
         StartCoroutine(DelayedLoadScene());
     }
 

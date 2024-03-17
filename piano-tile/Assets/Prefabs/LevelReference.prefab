@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 7552131876141991000}
   - component: {fileID: 5477912995290276553}
   - component: {fileID: 1074291697538898138}
-  - component: {fileID: 1094659107998104109}
   m_Layer: 5
   m_Name: LevelName
   m_TagString: Untagged
@@ -238,7 +237,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1094659107998104109}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
@@ -250,19 +249,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1094659107998104109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 590479397617541099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4a3d3c97426454da25c38dbf3b9e27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scene: 0
 --- !u!1 &7382246228584054627
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +261,7 @@ GameObject:
   - component: {fileID: 234221930151017398}
   - component: {fileID: 7923189338860821245}
   - component: {fileID: 957428845120306722}
+  - component: {fileID: 6379552613580678915}
   m_Layer: 5
   m_Name: StarCount
   m_TagString: Untagged
@@ -350,3 +337,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vp: {fileID: 0}
   rawImage: {fileID: 0}
+--- !u!114 &6379552613580678915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7382246228584054627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4a3d3c97426454da25c38dbf3b9e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: nevergonna

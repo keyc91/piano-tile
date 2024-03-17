@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
-    public bool allowTouchInput;
-    public static TouchManager Instance;
-
-    void Awake()
-    {
-        Instance = this;
-        allowTouchInput = true;
-    }
+    public static bool allowTouchInput;
 
     void Update()
     {
+        // allowTouchInput - GameControl.GameStop()
         if (allowTouchInput)
         {
+            // pokud hrac kliknul - spusteni Hit() z note scriptu
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
