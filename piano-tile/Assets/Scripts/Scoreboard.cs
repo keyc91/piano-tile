@@ -12,17 +12,8 @@ public class Scoreboard : MonoBehaviour
 
     void Awake()
     {
-        scorepoints = 0;
         Instance = this;
-        SetUp();
-    }
-
-    private void SetUp()
-    {
-        text.rectTransform.anchoredPosition = new Vector2(-Screen.width / 8, Screen.height / 8);
-        text.rectTransform.sizeDelta = new Vector2(Screen.width / 4, Screen.height / 10);
-        scorepoints = -1;
-        ScoreUp();
+        scorepoints = 0;
     }
 
     public void ScoreUp()

@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelButton : MonoBehaviour
 {
-    public string scene;
-
     void Start()
     {
         // nacteni buttonu
@@ -20,6 +18,12 @@ public class LevelButton : MonoBehaviour
 
     public void OnClick()
     {
+        string scene = gameObject.transform.parent.name;
+        if (scene == "Container")
+        {
+            scene = gameObject.name;
+        }
+
         // ulozeni jmena vybraneho levelu
         PlayerPrefs.SetString("CurrentLevel", scene);
         

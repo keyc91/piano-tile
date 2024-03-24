@@ -42,7 +42,6 @@ public class GameControl : MonoBehaviour
         TouchManager.allowTouchInput = true;
         currentRowNumber = -1;
         lastNoteId = -1;
-        Debug.Log("last note id " + lastNoteId);
         currentNote = 0;
         notesPassed = 0;
         moving = true;
@@ -86,7 +85,7 @@ public class GameControl : MonoBehaviour
                 // y souradnice posledniho radku not
                 if (lastSpawned != null)
                 {
-                    lastSpawnedY = lastSpawned.transform.position.y;
+                    lastSpawnedY = Mathf.Round(lastSpawned.transform.position.y * 100) / 100; ;
                 }
 
                 // ctyri noty na radek, jedna visible
@@ -139,6 +138,9 @@ public class GameControl : MonoBehaviour
         int stars = StarsScene();
         PlayerPrefs.SetInt("CurrentStars", stars);
         PrefEdit(stars);
+
+        // stop audio
+        AudioLevel.Instance.audioSource.Stop();
 
         // animace a zmena sceny
         StartCoroutine(DelayedTransition());
