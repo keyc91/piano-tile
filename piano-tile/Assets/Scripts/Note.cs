@@ -8,27 +8,26 @@ using System.Linq;
 
 public class Note : MonoBehaviour
 {
-    // components
+    // komponenty
     private Rigidbody2D rb;
     private Renderer rendererr;
     private BoxCollider2D boxcollider;
     public AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
 
-    // booly na zaznamenni doteku a viditelnosti
+    // booly na zaznamenáni doteku a viditelnosti
     public bool touched = false;
     public bool visible = false;
 
-    // poradi rady not
+    // poøadí dané øady not
     public int rowNumber;
 
     void Start()
     {
-        // nastaveni zvuku noty
+        // nastavení zvuku noty
         AudioSource();
 
-        // spawn info
-        touched = false;
+        // naètení komponentù
         rb = GetComponent<Rigidbody2D>();
         rendererr = GetComponent<Renderer>();
         boxcollider = GetComponent<BoxCollider2D>();
@@ -37,7 +36,7 @@ public class Note : MonoBehaviour
         // rychlost noty
         rb.velocity = new Vector2(0f, -MidiFileInfo.speed);
 
-        // zneviditelneni noty
+        // zneviditelnìní noty
         if (!visible)
         {
             rendererr.enabled = false;
@@ -46,12 +45,12 @@ public class Note : MonoBehaviour
 
     private void Update()
     {
-        // gameobject mimo obrazovku
+        // game object mimo obrazovku
         if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - GameControl.noteHeight) 
         {
             Destroy(gameObject);
 
-            // pokud je nota posledni, konec hry
+            // pokud je nota poslední, konec hry
             if (visible) GameControl.notesPassed++;
             if (GameControl.notesPassed == MidiFileInfo.timeStamps.Count)
             {
@@ -59,7 +58,7 @@ public class Note : MonoBehaviour
             }
         }
 
-        // netrefna viditelna nota mimo obrazovku
+        // nedotèená viditelná nota mimo obrazovku
         if (transform.position.y <= (-GameControl.noteHeight * 5/ 2) && touched == false)
         {
             if (visible) 
@@ -68,16 +67,29 @@ public class Note : MonoBehaviour
             }
         }
 
-        // zastaveni pohybu skrz bool moving - StopGame (GameControl script)
+        // zastavení pohybu skrz bool moving - StopGame (GameControl script)
         if (GameControl.moving == false)
         {
             rb.velocity = new Vector2(0f, 0f);
         }
     }
 
+
+    private void AudioSource()
+    {
+        // naètení zdroje zvuku game objectu
+        audioSource = GetComponent<AudioSource>();
+
+        // pøidìlení mp3 souboru k dané notì
+        int noteNumber = MidiFileInfo.notes[rowNumber].NoteNumber;
+        audioSource.clip = Resources.Load<AudioClip>("Piano/" + noteNumber);
+
+    }
+
+
     public void Hit()
     {
-        // if zajisti, ze noty v zahranem radku uz nejdou odkliknout
+        // if zajistí, že noty v již zahraném øádku zùstanou nedotèené
         if (rowNumber > GameControl.currentRowNumber)
         {
             // podle viditelnosti
@@ -88,59 +100,47 @@ public class Note : MonoBehaviour
 
     private void WrongNote()
     {
-        // zvuk spatne noty
+        // pøehrání zvuku špatné noty
         audioSource.clip = Resources.Load<AudioClip>("Piano/27");
         audioSource.Play();
 
-        // zmena barvy noty + zviditelneni
+        // zmìna barvy noty + její zviditelnìní
         spriteRenderer.color = Color.black;
         rendererr.enabled = true;
 
-        // zastaveni hry
+        // zastavení hry
         GameControl.Instance.StopGame();
     }
 
     private void CorrectNote()
     {
-        // nota nemuze pricist body vicekrat
+        // nota nebyla dotèena - jedna nota nemùže pøièíst bod vícekrat
         if (!touched)
         {
             // zvuk noty
             audioSource.Play();
 
-            // vypnuti (aby se v rychlejsich levelech zvuk neprekryval)
+            // zastavení zvuku noty (aby se v rychlejších levelech zvuk nepøekrýval)
             if (rowNumber != MidiFileInfo.timeStamps.Count - 1)
             {
                 StartCoroutine(TurnOffAfterDelay());
             }
 
-            // zmena barvy
+            // zmìna barvy
             spriteRenderer.color = Color.grey;
 
-            // score++
+            // zvýšení skóre
             Scoreboard.Instance.ScoreUp();
 
-            // prechod na dalsi radek
+            // pøechod na další øádek
             GameControl.currentRowNumber = rowNumber;
             touched = true;
         }
     }
 
-    
-    private void AudioSource()
-    {
-        // nacteni audio sourcu
-        audioSource = GetComponent<AudioSource>();
-
-        // prideleni mp3 zvuku k dane note
-        int noteNumber = MidiFileInfo.notes[rowNumber].NoteNumber;
-        audioSource.clip = Resources.Load<AudioClip>("Piano/" + noteNumber);
-
-    }
-
     private IEnumerator TurnOffAfterDelay()
     {
-        yield return new WaitForSeconds(MidiFileInfo.shortestNoteSec + 0.1f);
+        yield return new WaitForSeconds(MidiFileInfo.shortestNoteSec + 0.2f);
         audioSource.Stop();
     }
 }

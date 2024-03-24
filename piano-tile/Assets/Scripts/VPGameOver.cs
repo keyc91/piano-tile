@@ -7,6 +7,7 @@ using System.IO;
 public class VPGameOver : MonoBehaviour
 {
     public VideoPlayer vp;
+
     void Awake()
     {
         VideoSwitch();
@@ -14,6 +15,7 @@ public class VPGameOver : MonoBehaviour
 
     void VideoSwitch()
     {
+        // nalezení a spuštìní videa z poètu dosažených hvìzd
         vp.url = (Application.dataPath + "/Resources/Video/gameover" + PlayerPrefs.GetInt("CurrentStars") + ".mp4");
         vp.Prepare();
         vp.Play();

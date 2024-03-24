@@ -10,7 +10,7 @@ public class SceneButton : MonoBehaviour
 
     void Start()
     {
-        // nacteni buttonu
+        // naètení tlaèítka
         Button yourButton = GetComponent<Button>(); 
         if (yourButton != null)
         {
@@ -20,10 +20,10 @@ public class SceneButton : MonoBehaviour
 
     public void OnClick()
     {
-        // trigger animace
+        // spuštìní animace
         LevelLoader.Instance.animator.SetTrigger("Scene");
 
-        // spusteni sceny po uplynuti jedne vteriny
+        // spuštení scény po uplynutí jedné vteøiny
         StartCoroutine(DelayedLoadScene());
     }
 

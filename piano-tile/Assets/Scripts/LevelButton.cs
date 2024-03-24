@@ -8,7 +8,7 @@ public class LevelButton : MonoBehaviour
 {
     void Start()
     {
-        // nacteni buttonu
+        // naètení tlaèítka
         Button yourButton = GetComponent<Button>();
         if (yourButton != null)
         {
@@ -18,19 +18,20 @@ public class LevelButton : MonoBehaviour
 
     public void OnClick()
     {
+        // jméno levelu z rodièe, popøípadì z game objectu samotného
         string scene = gameObject.transform.parent.name;
         if (scene == "Container")
         {
             scene = gameObject.name;
         }
 
-        // ulozeni jmena vybraneho levelu
+        // uložení jména vybraného levelu
         PlayerPrefs.SetString("CurrentLevel", scene);
         
-        // trigger animace
+        // spuštení animace
         LevelLoader.Instance.animator.SetTrigger("Scene");
 
-        // spusteni levelu po uplynuti jedne vteriny 
+        // spuštìní levelu po uplynutí jedné vteøiny 
         StartCoroutine(DelayedLoadScene());
     }
 

@@ -21,20 +21,20 @@ public class NoteResize : MonoBehaviour
         var screenWidth = topRightWorldPoint.x - bottomLeftWorldPoint.x;
         var screenHeight = topRightWorldPoint.y - bottomLeftWorldPoint.y;
 
-        // vyska a delka not
+        // výška a délka not
         float noteHeight = screenHeight / 4;
         float noteWidth = screenWidth / 4;
 
         var noteSpriteRenderer = notePrefab.GetComponent<SpriteRenderer>();
 
-        // zmena velikosti prefabu noty
+        // zmìna velikosti prefabu noty
         notePrefab.transform.localScale = new Vector3(
                noteWidth / noteSpriteRenderer.bounds.size.x * noteSpriteRenderer.transform.localScale.x,
                noteHeight / noteSpriteRenderer.bounds.size.y * noteSpriteRenderer.transform.localScale.y, 1);
 
         spawnHeight = ((topRightWorldPoint.y * 5) / 4);
 
-        // spawn positions x axis
+        // výpoèet mista vzniku not z velikosti obrazovky
         float leftSpawn = -noteWidth * 3 / 2;
         float leftMiddleSpawn = -noteWidth / 2;
         float rightMiddleSpawn = noteWidth / 2;

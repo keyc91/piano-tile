@@ -9,10 +9,11 @@ public class AudioLevel : MonoBehaviour
     void Start()
     {
         Instance = this;
-        // vypocet zdrzeni audia
+
+        // výpoèet odložení audia
         float delay = MidiFileInfo.shortestNoteSec * 4;
 
-        // spusteni audia se zpozdenim
+        // spuštìní audia se zpoždìním
         StartCoroutine(DelayedAudio(delay));
     }
 
@@ -20,7 +21,7 @@ public class AudioLevel : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        // spusteni audio filu
+        // spuštìní mp3 souboru daného levelu
         string path = "Audio/" + PlayerPrefs.GetString("CurrentLevel");
         audioSource.clip = Resources.Load<AudioClip>(path);
         audioSource.Play();

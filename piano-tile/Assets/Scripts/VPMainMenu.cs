@@ -9,23 +9,30 @@ public class VPMainMenu : MonoBehaviour
 
     void Start()
     {
-        Intro();
-        vp.loopPointReached += Loop;
+        Video1();
+
+        // spuštìní druhého videa po konci prvního
+        vp.loopPointReached += Video2;
     }
 
-    void Intro()
+    void Video1()
     {
+        // naètení a spuštení prvního videa
         vp.url = (Application.dataPath + "/Resources/Video/intro.mp4");
         vp.Prepare();
         vp.Play();
     }
 
-    void Loop(VideoPlayer source)
+    void Video2(VideoPlayer source)
     {
-        vp.loopPointReached -= Loop;
-        vp.url = (Application.dataPath + "/Resources/Video/intro loop.mp4");
+        // vypnutí loopPointReached - aby se video nenaèítalo víckrát
+        vp.loopPointReached -= Video2;
 
+        // naètení druhého videa
+        vp.url = (Application.dataPath + "/Resources/Video/intro loop.mp4");
         vp.Prepare();
+
+        // spustí video pøehrávající se ve smyèce
         vp.Play();
         vp.isLooping = true;
     }

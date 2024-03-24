@@ -13,8 +13,13 @@ public class VPLevelsMenu : MonoBehaviour
 
     void Awake()
     {
+        // nalezení RawImage komponentu daného game objectu
         rawImage = GetComponent<RawImage>();
+
+        // zjištìní poètu hvìzd ze jména rodièe
         FindParent();
+
+        // naètení RawImage
         VideoSwitch();
     }
 
@@ -22,14 +27,15 @@ public class VPLevelsMenu : MonoBehaviour
     {
         parentsName = transform.parent.gameObject.name;
         currentStars = PlayerPrefs.GetInt("Level" + parentsName + "Stars");
-        // Debug.Log(parentsName + "ma hvezd" + currentStars);
     }
 
     void VideoSwitch()
     {
-        //if (currentStars == 0) { vp.isLooping = true; }
+        // nalezení video pøehrávaèe 
         GameObject starsVideo = GameObject.Find(currentStars + "Stars");
         vp = starsVideo.GetComponent<VideoPlayer>();
+
+        // využití jeho RawImage
         rawImage.texture = vp.targetTexture;
         vp.Play();
     }

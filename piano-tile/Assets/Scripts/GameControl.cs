@@ -8,30 +8,30 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl Instance;
 
-    // edited z NoteResize
+    // přepisováno ze scriptu NoteResize
     public static float noteHeight;
     public static List<float> spawns = new List<float>();
 
-    // vyuzivano Note scriptem
+    // využíváno Note scriptem
     public static int notesPassed; // konec hry trigger
     public static bool moving;
     public static int currentRowNumber;
 
 
-    // kvuli instatiate
+    // kvůli instatiate
     public Note notePrefab;
 
     // spawn y pozice
     private Note lastSpawned;
     private float lastSpawnedY;
 
-    // zmena pozice x oproti minule
+    // změna pozice x oproti minulé notě
     private int lastNoteId;
 
     public static int currentNote;
-    private float epsilon;
+    private float epsilon = 0.02f; // maximální rozdíl při porovnávání časových hodnot (frekvence volání fixed updatu)
 
-    // cas v game control
+    // čas poslední generace noty
     private float spawnCallTime;
 
     private void Start()
@@ -47,8 +47,6 @@ public class GameControl : MonoBehaviour
         moving = true;
         lastSpawnedY = NoteResize.spawnHeight;
         spawnCallTime = -MidiFileInfo.shortestNoteSec;
-
-        epsilon = 0.02f;
     }
 
     void FixedUpdate()
@@ -67,28 +65,26 @@ public class GameControl : MonoBehaviour
 
     private void SpawnNotes()
     {
-        // kontrola, ze nejsme na konci midi filu
+        // kontrola, že nejsme na konci midi souboru
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
-            // odpovida cas timestampu jedne z not midifilu?
+            // odpovídá čas timestampu jedné z not midi souboru?
             if (Mathf.Abs(spawnCallTime - MidiFileInfo.timeStamps[currentNote]) < epsilon)
             {
-                //Debug.Log("went through spawn difference:" + (spawnCallTime - MidiFileInfo.timeStamps[currentNote]));
-
-                // zmena spawn x pozice oproti poslednim note
+                // změna generované x souřadnice oproti poslední notě
                 int rnd = Random.Range(0, spawns.Count);
                 while (lastNoteId == rnd)
                 {
                     rnd = Random.Range(0, spawns.Count);
                 }
 
-                // y souradnice posledniho radku not
+                // y souřadnice posledního řádku not
                 if (lastSpawned != null)
                 {
                     lastSpawnedY = Mathf.Round(lastSpawned.transform.position.y * 100) / 100; ;
                 }
 
-                // ctyri noty na radek, jedna visible
+                // čtyři noty na řádek, jedna viditelná
                 for (int i = 0; i < spawns.Count; i++)
                 {
                     if (i == rnd)
@@ -109,16 +105,16 @@ public class GameControl : MonoBehaviour
                 currentNote++;
             }
 
-            // vytvori ctyri noty na radek, vsechny neviditelne
+            // vytvoří čtyři noty na řádek, všechny neviditelné
             else
             {
-                // hodnota y posledniho spawnuteho radku
+                // y souřadnice posledního generovaného řádku
                 if (lastSpawned != null)
                 {
                     lastSpawnedY = lastSpawned.transform.position.y;
                 }
 
-                // spawn radku
+                // generace nového řádku
                 foreach (float spawnPosition in spawns)
                 {
                     lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
@@ -130,26 +126,26 @@ public class GameControl : MonoBehaviour
 
     public void StopGame()
     {
-        // zastavit vsechny gameobjects
+        // zastavit všechny game objecty
         moving = false;
         TouchManager.allowTouchInput = false;
 
-        // pocet hvezdicek
+        // počet hvězd
         int stars = StarsScene();
         PlayerPrefs.SetInt("CurrentStars", stars);
         PrefEdit(stars);
 
-        // stop audio
+        // zastavení audia
         AudioLevel.Instance.audioSource.Stop();
 
-        // animace a zmena sceny
+        // animace a změna scény
         StartCoroutine(DelayedTransition());
     }
 
 
     IEnumerator DelayedTransition()
     {
-        // pocka vterinu, spusti animaci
+        // počká vteřinu, spustí animaci
         yield return new WaitForSecondsRealtime(1f);
         LevelLoader.Instance.animator.SetTrigger("Scene");
         StartCoroutine(DelayedLoadScene());
@@ -157,7 +153,7 @@ public class GameControl : MonoBehaviour
 
     IEnumerator DelayedLoadScene()
     {
-        // pocka vterinu, nacte scene game over
+        // počká vteřinu, načte scénu 'game over'
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(1);
     }
@@ -167,13 +163,13 @@ public class GameControl : MonoBehaviour
     {
         string currentLevelName = PlayerPrefs.GetString("CurrentLevel");
 
-        // pokud uz je ulozena starsi hodnota poctu hvezd v player prefs, porovnat a pripadne prepsat
+        // pokud už je uložena starší hodnota počtu hvězd v player prefs, porovnat a případně přepsat
         if (PlayerPrefs.HasKey("Level" + currentLevelName + "Stars"))
         {
             if (stars > PlayerPrefs.GetInt("Level" + currentLevelName + "Stars")) PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", stars);
         }
 
-        // pokud neni, ulozit novou
+        // pokud není, uložit novou
         else
         {
             PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", stars);
@@ -182,10 +178,10 @@ public class GameControl : MonoBehaviour
 
     private int StarsScene()
     {
-        // uspesnost v procentech
+        // úspěšnost v procentech
         double percent = (double)Scoreboard.scorepoints / MidiFileInfo.timeStamps.Count;
 
-        // prepocet procent na pocet hvezd (po tretinach)
+        // prepočet procent na počet hvězd (po třetinách)
         if (percent == 1) return 3;
         if (2.0 / 3.0 <= percent && percent < 1) return 2;
         if (1.0 / 3.0 <= percent && percent < 2.0 / 3.0) return 1;

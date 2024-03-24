@@ -6,7 +6,7 @@ public class AudioGameOver : MonoBehaviour
 {
     public AudioSource audioSource;
     private int currentStars;
-    // Update is called once per frame
+
     void Awake()
     {
         PlayAudio();
@@ -14,9 +14,11 @@ public class AudioGameOver : MonoBehaviour
 
     void PlayAudio()
     {
+        // naètení audia z poètu dosažených hvìzd
         currentStars = PlayerPrefs.GetInt("CurrentStars");
         string path = "Audio/" + currentStars + "starsover";
         audioSource.clip = Resources.Load<AudioClip>(path);
+
         audioSource.Play();
     }
 

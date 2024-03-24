@@ -13,12 +13,17 @@ public class Scoreboard : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        // reset skóre
         scorepoints = 0;
     }
 
     public void ScoreUp()
     {
+        // zvýšení skóre
         scorepoints++;
+
+        // zmìna skóre na obrazovce
         text.text = scorepoints.ToString();
     }
 }
