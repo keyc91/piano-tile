@@ -45,7 +45,7 @@ public class GameControl : MonoBehaviour
         currentNote = 0;
         notesPassed = 0;
         moving = true;
-        lastSpawnedY = NoteResize.spawnHeight;
+
         spawnCallTime = -MidiFileInfo.shortestNoteSec;
     }
 
@@ -77,26 +77,16 @@ public class GameControl : MonoBehaviour
                 {
                     rnd = Random.Range(0, spawns.Count);
                 }
-
-                // y souřadnice posledního řádku not
-                if (lastSpawned != null)
-                {
-                    lastSpawnedY = Mathf.Round(lastSpawned.transform.position.y * 100) / 100; ;
-                }
+                
+                lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
+                
 
                 // čtyři noty na řádek, jedna viditelná
                 for (int i = 0; i < spawns.Count; i++)
                 {
-                    if (i == rnd)
-                    {
-                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
-                        lastSpawned.visible = true;
-                    }
+                    lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight - (epsilon * MidiFileInfo.speed)), Quaternion.identity);
 
-                    else
-                    {
-                        lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight), Quaternion.identity);
-                    }
+                    lastSpawned.visible = i == rnd;
 
                     lastSpawned.rowNumber = currentNote;
                 }
@@ -109,15 +99,12 @@ public class GameControl : MonoBehaviour
             else
             {
                 // y souřadnice posledního generovaného řádku
-                if (lastSpawned != null)
-                {
-                    lastSpawnedY = lastSpawned.transform.position.y;
-                }
+                lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
 
                 // generace nového řádku
                 foreach (float spawnPosition in spawns)
                 {
-                    lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight), Quaternion.identity);
+                    lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight - (epsilon * MidiFileInfo.speed)), Quaternion.identity);
                 }
             }
         }
@@ -151,6 +138,7 @@ public class GameControl : MonoBehaviour
         StartCoroutine(DelayedLoadScene());
     }
 
+
     IEnumerator DelayedLoadScene()
     {
         // počká vteřinu, načte scénu 'game over'
@@ -175,6 +163,7 @@ public class GameControl : MonoBehaviour
             PlayerPrefs.SetInt("Level" + currentLevelName + "Stars", stars);
         }
     }
+
 
     private int StarsScene()
     {

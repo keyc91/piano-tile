@@ -59,12 +59,9 @@ public class Note : MonoBehaviour
         }
 
         // nedotèená viditelná nota mimo obrazovku
-        if (transform.position.y <= (-GameControl.noteHeight * 5/ 2) && touched == false)
+        if (transform.position.y <= (-GameControl.noteHeight * 5/ 2) && !touched && visible)
         {
-            if (visible) 
-            {
-                WrongNote();
-            }
+            WrongNote();
         }
 
         // zastavení pohybu skrz bool moving - StopGame (GameControl script)
