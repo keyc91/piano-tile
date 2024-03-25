@@ -83,7 +83,7 @@ public class MidiFileInfo : MonoBehaviour
         { "Hafo", 105 },
         { "NeverGonna", 110 },
         { "BlueDanube", 135 },
-        { "Canon", 105 },
+        { "Canon", 90 },
         { "FurElise", 80 },
         { "RiverFlows", 120 },
         { "Tequila ", 120 },

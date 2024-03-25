@@ -169,6 +169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hafo
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6031312173730516423, guid: 9b326eb56bb7148408823c563d02e9f8, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -770,6 +774,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TwinkleTwinkle
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6546829418094559817, guid: b08e63eadd39bee4e8d3ca31151c331a, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1190,6 +1198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueDanube
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -440947399841390828, guid: 05a447701c41a584bac5575318b640c3, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1299,6 +1311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RiverFlows
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -540291294629533336, guid: 36b365cf7316e1343824498b45551ed5, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1442,6 +1458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FurElise
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -509944822983501791, guid: d56e91741787c4942b1575b0eb342ed4, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1546,6 +1566,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tequila
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -175928216700358889, guid: b95a657911ed58c498d0279c5fbf5b17, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1650,6 +1674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CDur
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8376663489586607421, guid: 17bfc9a79330ad245b092a31b5a3b1c4, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2030,6 +2058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canon
       objectReference: {fileID: 0}
+    - target: {fileID: 5477912995290276553, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3430939095260042527, guid: 06e54a76808f0d14e87351083117fe06, type: 3}
     - target: {fileID: 8622039329323028167, guid: e97c028efd1bc6242b3b0e21ba1492f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

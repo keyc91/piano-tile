@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tequila_0: -175928216700358889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

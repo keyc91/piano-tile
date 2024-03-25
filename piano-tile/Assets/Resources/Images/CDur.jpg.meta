@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d56e91741787c4942b1575b0eb342ed4
+guid: 17bfc9a79330ad245b092a31b5a3b1c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -509944822983501791
-    second: furelise_0
+      213: 8376663489586607421
+    second: IMG_0302(1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: furelise_0
+      name: IMG_0302(1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 999
-        height: 562
+        width: 794
+        height: 447
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 128d403a2ef4ce8f0800000000000000
-      internalID: -509944822983501791
+      spriteID: d353bc3ff03ef3470800000000000000
+      internalID: 8376663489586607421
       vertices: []
       indices: 
       edges: []
@@ -157,7 +157,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      furelise_0: -509944822983501791
+      IMG_0302(1)_0: 8376663489586607421
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

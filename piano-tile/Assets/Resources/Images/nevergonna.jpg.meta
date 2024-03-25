@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nevergonna_0: -7094707076419552045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

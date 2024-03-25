@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      twinkletwinkle_0: -6546829418094559817
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
