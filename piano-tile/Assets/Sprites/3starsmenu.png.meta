@@ -1,0 +1,703 @@
+fileFormatVersion: 2
+guid: 1a77a765f079d454094687119f447a6d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9039628854909946611
+    second: 3starsmenu_0
+  - first:
+      213: 8196308947591808217
+    second: 3starsmenu_1
+  - first:
+      213: 6532090746043844297
+    second: 3starsmenu_2
+  - first:
+      213: 1126714605359566999
+    second: 3starsmenu_3
+  - first:
+      213: 5588847441233864415
+    second: 3starsmenu_4
+  - first:
+      213: -497452160245941736
+    second: 3starsmenu_5
+  - first:
+      213: 4441497460703055848
+    second: 3starsmenu_6
+  - first:
+      213: -4353648061142722014
+    second: 3starsmenu_7
+  - first:
+      213: 1014600230374694072
+    second: 3starsmenu_8
+  - first:
+      213: -1754471521739864211
+    second: 3starsmenu_9
+  - first:
+      213: 5970000516560295229
+    second: 3starsmenu_10
+  - first:
+      213: 9188676161561124681
+    second: 3starsmenu_11
+  - first:
+      213: -251234818196517385
+    second: 3starsmenu_12
+  - first:
+      213: 7021194827687345360
+    second: 3starsmenu_13
+  - first:
+      213: 875808397876362577
+    second: 3starsmenu_14
+  - first:
+      213: 3296800072092255007
+    second: 3starsmenu_15
+  - first:
+      213: -8203912593759341760
+    second: 3starsmenu_16
+  - first:
+      213: 5395401630168589810
+    second: 3starsmenu_17
+  - first:
+      213: -5266814908971120987
+    second: 3starsmenu_18
+  - first:
+      213: -5937468450706121705
+    second: 3starsmenu_19
+  - first:
+      213: 3282334222717627125
+    second: 3starsmenu_20
+  - first:
+      213: -5831288004516649500
+    second: 3starsmenu_21
+  - first:
+      213: 9075383793159678678
+    second: 3starsmenu_22
+  - first:
+      213: -1620349035764390524
+    second: 3starsmenu_23
+  - first:
+      213: -1714819723405296954
+    second: 3starsmenu_24
+  - first:
+      213: -3100145879872956998
+    second: 3starsmenu_25
+  - first:
+      213: 623608879288957331
+    second: 3starsmenu_26
+  - first:
+      213: 6703127223595796893
+    second: 3starsmenu_27
+  - first:
+      213: -1756342135156765251
+    second: 3starsmenu_28
+  - first:
+      213: 6127068421808247668
+    second: 3starsmenu_29
+  - first:
+      213: -371100461231656697
+    second: 3starsmenu_30
+  - first:
+      213: -6001106243666404327
+    second: 3starsmenu_31
+  - first:
+      213: 8715908632861915260
+    second: 3starsmenu_32
+  - first:
+      213: -8460760129102791617
+    second: 3starsmenu_33
+  - first:
+      213: 1063695486971866505
+    second: 3starsmenu_34
+  - first:
+      213: -110525298732430850
+    second: 3starsmenu_35
+  - first:
+      213: 5464528408600990865
+    second: 3starsmenu_36
+  - first:
+      213: -1895228838846344936
+    second: 3starsmenu_37
+  - first:
+      213: 2682994743342462387
+    second: 3starsmenu_38
+  - first:
+      213: 508658019378771666
+    second: 3starsmenu_39
+  - first:
+      213: 3174507386488444539
+    second: 3starsmenu_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 3starsmenu_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 684
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ece27e6a532b09468b7d96766f0c6db
+      internalID: -606879972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 684
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95dd6658c32f3cd4ea199fec19cf297e
+      internalID: 1174229598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 684
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f4026e5bf30474d8aedc9be2842b06
+      internalID: 906242609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 684
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fbdcb3601009d24793cc4f2ed421950
+      internalID: -881636065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 684
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19117d21fa49d0a43af8217ae5e76134
+      internalID: -1395123573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 456
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108df0d96a8574249ae41172b526b871
+      internalID: -1618160619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 456
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 313925c7a3fbc5e4da4ecd11003b146e
+      internalID: 1682651892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_7
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 456
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e4378ab7762eb44a28761a3d128b7f
+      internalID: -1730193525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_8
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 456
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9f14fb9024882f4c90d523675bf039c
+      internalID: -1749325687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_9
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 456
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4585f39908fa75c44aa97a72cea208e3
+      internalID: 1289577724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 447e8b2058e2b534faca4fd5e1c98d95
+      internalID: 1597449972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_11
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 228
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90e4dac8cc0226d42bacf4276ed3d9f0
+      internalID: -1713953907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_12
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 228
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57ae2466bd92ce6499ded3983f82c160
+      internalID: -1469271156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_13
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 228
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ea5bb8efa51ee24492d5fc8b1a936cd
+      internalID: -1042963746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_14
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 228
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd455e2824f989a48b03eca70dddea79
+      internalID: -1054342287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78128c18539652e45a74c064cb5cb1f3
+      internalID: -2120909653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_16
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9361074aadbf75b4bb82242d69cde6ed
+      internalID: -1541002370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_17
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6f98ac5416ca5543953b2d6ea8c7773
+      internalID: 617442907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_18
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18467b72647f98e4b9200ad6e2560a18
+      internalID: -1084092182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3starsmenu_19
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 320
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4036838ac8598744da98717fc74899e6
+      internalID: -1955912819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 979bcd93eaee1b44b8632c999efbaaa4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      3starsmenu_0: -606879972
+      3starsmenu_1: 1174229598
+      3starsmenu_10: 1597449972
+      3starsmenu_11: -1713953907
+      3starsmenu_12: -1469271156
+      3starsmenu_13: -1042963746
+      3starsmenu_14: -1054342287
+      3starsmenu_15: -2120909653
+      3starsmenu_16: -1541002370
+      3starsmenu_17: 617442907
+      3starsmenu_18: -1084092182
+      3starsmenu_19: -1955912819
+      3starsmenu_2: 906242609
+      3starsmenu_3: -881636065
+      3starsmenu_4: -1395123573
+      3starsmenu_5: -1618160619
+      3starsmenu_6: 1682651892
+      3starsmenu_7: -1730193525
+      3starsmenu_8: -1749325687
+      3starsmenu_9: 1289577724
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
