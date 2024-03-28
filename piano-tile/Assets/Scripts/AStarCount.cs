@@ -42,7 +42,9 @@ public class AStarCount : MonoBehaviour
         string path;
         if (SceneManager.GetActiveScene().name == "levels menu")
         {
-            path = PlayerPrefs.GetInt("CurrentStars") + "starsmenu";
+            string parentsName = transform.parent.gameObject.name;
+            int stars = PlayerPrefs.GetInt("Level" + parentsName + "Stars");
+            path = stars + "starsmenu";
         }
 
         else
