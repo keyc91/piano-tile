@@ -98,8 +98,6 @@ public class Note : MonoBehaviour
     private void WrongNote()
     {
         // pøehrání zvuku špatné noty
-        audioSource.clip = Resources.Load<AudioClip>("Piano/27");
-        audioSource.Play();
 
         // zmìna barvy noty + její zviditelnìní
         spriteRenderer.color = Color.black;

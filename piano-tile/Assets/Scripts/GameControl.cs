@@ -125,6 +125,12 @@ public class GameControl : MonoBehaviour
         // zastavení audia
         AudioLevel.Instance.audioSource.Stop();
 
+        if (notesPassed != MidiFileInfo.timeStamps.Count)
+        {
+            AudioLevel.Instance.audioSource.clip = Resources.Load<AudioClip>("Piano/27");
+            AudioLevel.Instance.audioSource.Play();
+        }
+
         // animace a změna scény
         StartCoroutine(DelayedTransition());
     }

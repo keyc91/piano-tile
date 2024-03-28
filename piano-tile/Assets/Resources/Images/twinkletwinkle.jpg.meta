@@ -100,7 +100,7 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 50
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -126,22 +126,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: twinkletwinkle_0
+      name: TwinkleTwinkle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1065
-        height: 599
+        width: 1061
+        height: 585
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7bd7561b45df425a0800000000000000
-      internalID: -6546829418094559817
+      spriteID: 619668e66c0b75d4298203bb505cf136
+      internalID: 23639143
       vertices: []
       indices: 
       edges: []
@@ -149,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d05a856b7c446fc4bb7fd23e0eeba436
     internalID: 0
     vertices: []
     indices: 
@@ -157,7 +157,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      twinkletwinkle_0: -6546829418094559817
+      TwinkleTwinkle_0: 23639143
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
