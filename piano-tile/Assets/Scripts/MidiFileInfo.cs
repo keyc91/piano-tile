@@ -10,10 +10,13 @@ using System.Linq;
 public class MidiFileInfo : MonoBehaviour
 {
     public static MidiFileInfo Instance;
-    public MidiFile midiFile;
     public static float speed;
+
+    private string[] lines;
+
     public static List<float> timeStamps = new List<float>();
-    public static List<Melanchall.DryWetMidi.Interaction.Note> notes = new List<Melanchall.DryWetMidi.Interaction.Note>();
+    public static List<int> noteNumber = new List<int>();
+
     public static float shortestNoteSec;
 
     private void Awake()
@@ -21,7 +24,7 @@ public class MidiFileInfo : MonoBehaviour
         Instance = this;
 
         // restart scÈny
-        notes.Clear();
+        noteNumber.Clear();
         timeStamps.Clear();
 
         LoadMidiFile();
@@ -29,51 +32,89 @@ public class MidiFileInfo : MonoBehaviour
 
     private void LoadMidiFile()
     {
-        // jmÈno levelu
+        // naËtenÌ textovÈho souboru (generovanÈho z midi) pomoci jmÈna levelu
         string scene = PlayerPrefs.GetString("CurrentLevel");
+        string filePath = "Text/" + scene;
+        TextAsset textAsset = Resources.Load<TextAsset>(filePath);
 
-        // naËtenÌ midi souboru pomoci jmÈna levelu
-        string filePath = Path.Combine(Application.dataPath, "Resources/Midi/" + scene + ".mid");
-        midiFile = MidiFile.Read(filePath);
-
-        // p¯epis bpm pokud je definov·no, jinak v˝chozÌ hodnota 120
-        long bpm = bpms.ContainsKey(scene) ? bpms[scene] : 120;
-
-        // hodnota ËtvrùovÈ noty v mikrovte¯in·ch
-        long microsecondsPerQuarterNote = (long)60000000.0 / bpm;
-
-        // zmÏna tempa midi souboru
-        using (var tempoMapManager = midiFile.ManageTempoMap())
+        Debug.Log(scene);
+        if (textAsset != null)
         {
-            tempoMapManager.SetTempo(new MetricTimeSpan(0), new Tempo(microsecondsPerQuarterNote));
+            // naËtenÌ textu do stringu
+            string fileContents = textAsset.text;
+
+            // rozdÏlenÌ do ¯·dk˘
+            lines = fileContents.Split('\n');
+
+            ReadFirstLine();
+            ReadSecondLine();
+            ReadThirdLine();
+
+            speed = GameControl.noteHeight / shortestNoteSec;
         }
 
-        // naËtenÌ not do seznamu
-        notes = midiFile.GetNotes().ToList();
-        Debug.Log("poËet not: " + notes.Count);
-
-        // hodnota nejkratöÌ noty ve vte¯in·ch
-        TempoMap tempoMap = midiFile.GetTempoMap();
-        MetricTimeSpan firstNote = notes[0].LengthAs<MetricTimeSpan>(tempoMap);
-        shortestNoteSec = (float)firstNote.TotalSeconds;
-        Debug.Log("DÈlka nejkratöÌ noty: " + shortestNoteSec);
-
-        // tempo midi souboru (kontrola)
-        Tempo tempo = tempoMap.GetTempoAtTime(firstNote);
-        double bpmnow = 60000000.0 / tempo.MicrosecondsPerQuarterNote;
-        Debug.Log("Tempo: " + bpmnow + " BPM");
-
-        // naËtenÌ Ëasu generace not do seznamu (vte¯iny)
-        foreach (Melanchall.DryWetMidi.Interaction.Note note in notes)
+        else
         {
-            float timestamp = (note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1_000_000.0f);
-
-            // + Ëasov· rezerva jedna Ëtvrtov· nota
-            timeStamps.Add(timestamp + shortestNoteSec);
+            Debug.LogError("Text file not found.");
         }
 
         // v˝poËet rychlosti not
-        speed = GameControl.noteHeight / (float)firstNote.TotalSeconds;
+        speed = GameControl.noteHeight / shortestNoteSec;
+    }
+
+    private void ReadFirstLine()
+    {
+        // Access the first line
+        string firstLine = lines[0];
+
+        // Trim leading and trailing whitespace
+        firstLine = firstLine.Trim();
+
+        // Split the first line into individual numbers using spaces
+        string[] firstLineSplit = firstLine.Split(' ');
+
+        // Convert each number to integer
+        foreach (string str in firstLineSplit)
+        {
+            try
+            {
+                int parsedInt = int.Parse(str);
+                noteNumber.Add(parsedInt);
+            }
+            catch (FormatException ex)
+            {
+                Debug.LogError("Error parsing string to integer: " + ex.Message);
+                Debug.LogError("Invalid string: " + str);
+            }
+
+            Debug.Log("First line numbers: " + string.Join(", ", noteNumber));
+        }
+    }
+
+    private void ReadSecondLine()
+    {
+        // Access the second line
+        string secondLine = lines[1];
+
+        // Trim leading and trailing whitespace
+        secondLine = secondLine.Trim();
+
+        // Split the second line into individual numbers using spaces
+        string[] secondLineSplit = secondLine.Split(' ');
+
+        // Convert each number to integer
+        foreach (string str in secondLineSplit)
+        {
+            timeStamps.Add(float.Parse(str));
+        }
+
+        Debug.Log("Second line numbers: " + string.Join(", ", timeStamps));
+    }
+
+    private void ReadThirdLine()
+    {
+        shortestNoteSec = float.Parse(lines[2]);
+        Debug.Log(shortestNoteSec);
     }
 
     // slovnÌk s bpm hodnotou kaûdÈho levelu

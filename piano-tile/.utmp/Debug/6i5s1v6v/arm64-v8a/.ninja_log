@@ -1,0 +1,5 @@
+# ninja log v5
+2	81	7334241114025310	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	3d5ee6fcf755d845
+82	179	7334241114707260	C:/Users/katie/Documents/GitHub/piano-tile/piano-tile/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6i5s1v6v/obj/arm64-v8a/libswappywrapper.so	a16ac555fb96fd9a
+1	169	7334444797280742	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	3d5ee6fcf755d845
+169	289	7334444798123798	C:/Users/katie/Documents/GitHub/piano-tile/piano-tile/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6i5s1v6v/obj/arm64-v8a/libswappywrapper.so	a16ac555fb96fd9a

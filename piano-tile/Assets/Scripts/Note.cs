@@ -78,7 +78,7 @@ public class Note : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         // pøidìlení mp3 souboru k dané notì
-        int noteNumber = MidiFileInfo.notes[rowNumber].NoteNumber;
+        int noteNumber = MidiFileInfo.noteNumber[rowNumber];
         audioSource.clip = Resources.Load<AudioClip>("Piano/" + noteNumber);
 
     }

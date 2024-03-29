@@ -11,7 +11,7 @@ public class AudioLevel : MonoBehaviour
         Instance = this;
 
         // výpoèet odložení audia
-        float delay = MidiFileInfo.shortestNoteSec * 4;
+        float delay = MidiFileInfo.shortestNoteSec * 3;
 
         // spuštìní audia se zpoždìním
         StartCoroutine(DelayedAudio(delay));
