@@ -86,9 +86,9 @@ public class MidiFileInfo : MonoBehaviour
                 Debug.LogError("Error parsing string to integer: " + ex.Message);
                 Debug.LogError("Invalid string: " + str);
             }
-
-            Debug.Log("First line numbers: " + string.Join(", ", noteNumber));
         }
+
+        Debug.Log("First line numbers: " + string.Join(", ", noteNumber));
     }
 
     private void ReadSecondLine()

@@ -13,9 +13,8 @@ public class GameControl : MonoBehaviour
     public static List<float> spawns = new List<float>();
 
     // využíváno Note scriptem
-    public static int notesPassed; // konec hry trigger
     public static bool moving;
-    public static int currentRowNumber;
+    public static int currentRowNumber; // zabraňuje řádku více než jedno kliknutí
 
 
     // kvůli instatiate
@@ -23,13 +22,15 @@ public class GameControl : MonoBehaviour
 
     // spawn y pozice
     private Note lastSpawned;
+    private Note lastSpawnedVisible;
     private float lastSpawnedY;
 
     // změna pozice x oproti minulé notě
     private int lastNoteId;
 
-    public static int currentNote;
+    public static int currentNote; // spawnování not
     private float epsilon = 0.02f; // maximální rozdíl při porovnávání časových hodnot (frekvence volání fixed updatu)
+    private float spawnNotesDifference;
 
     // čas poslední generace noty
     private float spawnCallTime;
@@ -43,21 +44,19 @@ public class GameControl : MonoBehaviour
         currentRowNumber = -1;
         lastNoteId = -1;
         currentNote = 0;
-        notesPassed = 0;
         moving = true;
 
-        spawnCallTime = -MidiFileInfo.shortestNoteSec;
+        spawnNotesDifference = (MidiFileInfo.shortestNoteSec * 2) - 0.05f;
     }
 
     void FixedUpdate()
     {
         // 
         float time = Time.timeSinceLevelLoad;
-        float timeDifference = time - (spawnCallTime + MidiFileInfo.shortestNoteSec);
-
+        float timeDifference = time - spawnCallTime;
         if (Mathf.Abs(timeDifference) < epsilon)
         {
-            spawnCallTime = spawnCallTime + MidiFileInfo.shortestNoteSec;
+            Debug.Log("time difference: " + timeDifference);
             SpawnNotes();
         }
     }
@@ -69,8 +68,9 @@ public class GameControl : MonoBehaviour
         if (currentNote < MidiFileInfo.timeStamps.Count)
         {
             // odpovídá čas timestampu jedné z not midi souboru?
-            if (Mathf.Abs(spawnCallTime - MidiFileInfo.timeStamps[currentNote]) < epsilon)
+            if (Mathf.Abs(spawnCallTime - MidiFileInfo.timeStamps[currentNote]) < spawnNotesDifference)
             {
+                Debug.Log("Spawned: " + spawnCallTime + ", timestamp: " + MidiFileInfo.timeStamps[currentNote]);
                 // změna generované x souřadnice oproti poslední notě
                 int rnd = Random.Range(0, spawns.Count);
                 while (lastNoteId == rnd)
@@ -79,14 +79,28 @@ public class GameControl : MonoBehaviour
                 }
                 
                 lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
-                
 
                 // čtyři noty na řádek, jedna viditelná
                 for (int i = 0; i < spawns.Count; i++)
                 {
                     lastSpawned = Instantiate(notePrefab, new Vector2(spawns[i], lastSpawnedY + noteHeight - (epsilon * MidiFileInfo.speed)), Quaternion.identity);
 
-                    lastSpawned.visible = i == rnd;
+                    if (i == rnd)
+                    {
+                        lastSpawned.visible = true;
+
+                        if (currentNote > 0 && lastSpawnedVisible != null)
+                        {
+                            Note noteComponent = lastSpawned.GetComponent<Note>();
+                            noteComponent.lastAudioSource = lastSpawnedVisible.GetComponent<AudioSource>();
+                            lastSpawnedVisible = lastSpawned;
+                        }
+
+                        else
+                        {
+                            lastSpawnedVisible = lastSpawned;
+                        }
+                    }
 
                     lastSpawned.rowNumber = currentNote;
                 }
@@ -98,6 +112,7 @@ public class GameControl : MonoBehaviour
             // vytvoří čtyři noty na řádek, všechny neviditelné
             else
             {
+                Debug.Log("Spawn call time: " + spawnCallTime + ", Time Stamp: " + MidiFileInfo.timeStamps[currentNote]);
                 // y souřadnice posledního generovaného řádku
                 lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
 
@@ -107,6 +122,8 @@ public class GameControl : MonoBehaviour
                     lastSpawned = Instantiate(notePrefab, new Vector2(spawnPosition, lastSpawnedY + noteHeight - (epsilon * MidiFileInfo.speed)), Quaternion.identity);
                 }
             }
+
+            spawnCallTime = spawnCallTime + MidiFileInfo.shortestNoteSec;
         }
     }
 
@@ -123,9 +140,9 @@ public class GameControl : MonoBehaviour
         PrefEdit(stars);
 
         // zastavení audia
-        AudioLevel.Instance.audioSource.Stop();
+        AudioLevel.Instance.audioSource.mute = false;
 
-        if (notesPassed != MidiFileInfo.timeStamps.Count)
+        if (currentRowNumber < MidiFileInfo.timeStamps.Count - 1)
         {
             AudioLevel.Instance.audioSource.clip = Resources.Load<AudioClip>("Piano/27");
             AudioLevel.Instance.audioSource.Play();
