@@ -16,9 +16,8 @@ public class AudioGameOver : MonoBehaviour
     {
         // naètení audia z poètu dosažených hvìzd
         currentStars = PlayerPrefs.GetInt("CurrentStars");
-        string path;
-        if (currentStars == 0) path = "Audio/0starsover" + Random.Range(1, 3);
-        else path = "Audio/" + currentStars + "starsover";
+
+        string path = "Audio/" + currentStars + "starsover" + Random.Range(1,3);
         audioSource.clip = Resources.Load<AudioClip>(path);
 
         audioSource.Play();
