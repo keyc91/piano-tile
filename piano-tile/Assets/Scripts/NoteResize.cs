@@ -9,7 +9,7 @@ public class NoteResize : MonoBehaviour
 
     void Awake()
     {
-        SetDataForNoteGeneration();
+        if (Time.time < 10) SetDataForNoteGeneration();
     }
 
     private void SetDataForNoteGeneration()

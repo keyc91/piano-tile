@@ -9,10 +9,17 @@ using Melanchall.DryWetMidi.Interaction;
 
 public class MidiToText : MonoBehaviour
 {
+    // info od uûivatele
     public new string name;
+    public long bpm;
 
+    // cesta k textovÈmu souboru
     private string textPath;
+
+    // midifile
     private MidiFile midiFile;
+
+    // dÈlka nejratöÌ noty
     private float shortestNoteSec;
 
     private TempoMap tempoMap;
@@ -21,8 +28,10 @@ public class MidiToText : MonoBehaviour
 
     void Start()
     {
+        // naËtenÌ cesty k textu
         textPath = Path.Combine(Application.dataPath, "Resources", "Text", name + ".txt");
 
+        // pokud jiû textov˝ soubor neexistuje
         if (!File.Exists(textPath))
         {
             PullInfo();
@@ -35,9 +44,6 @@ public class MidiToText : MonoBehaviour
         // naËtenÌ midi souboru pomoci jmÈna levelu
         string midiPath = Path.Combine(Application.dataPath, "Midi", name + ".mid");
         midiFile = MidiFile.Read(midiPath);
-
-        // p¯epis bpm pokud je definov·no, jinak v˝chozÌ hodnota 120
-        long bpm = bpms.ContainsKey(name) ? bpms[name] : 120;
 
         // hodnota ËtvrùovÈ noty v mikrovte¯in·ch
         long microsecondsPerQuarterNote = (long)60000000.0 / bpm;
@@ -93,19 +99,4 @@ public class MidiToText : MonoBehaviour
             Debug.LogError("Error writing to file: " + e.Message);
         }
     }
-
-
-    // slovnÌk s bpm hodnotou kaûdÈho levelu
-    private Dictionary<string, long> bpms = new Dictionary<string, long>()
-    {
-        { "CDur", 120 },
-        { "Hafo", 105 },
-        { "NeverGonna", 110 },
-        { "BlueDanube", 135 },
-        { "Canon", 90 },
-        { "FurElise", 80 },
-        { "RiverFlows", 120 },
-        { "Tequila ", 120 },
-        { "TwinkleTwinkle", 120 }
-    };
 }

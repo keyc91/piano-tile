@@ -14,12 +14,16 @@ public class AudioGameOver : MonoBehaviour
 
     void PlayAudio()
     {
-        // naètení audia z poètu dosažených hvìzd
+        // poèet dosažených hvìzd
         currentStars = PlayerPrefs.GetInt("CurrentStars");
 
+        // cesta k audiu, random výbìr ze dvou souborù
         string path = "Audio/" + currentStars + "starsover" + Random.Range(1,3);
+
+        // naètení souboru
         audioSource.clip = Resources.Load<AudioClip>(path);
 
+        // spuštìní
         audioSource.Play();
     }
 

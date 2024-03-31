@@ -8,7 +8,7 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {
-        // bool allowTouchInput - kvùli zastavení hry skrz StopGame (GameControl script)
+        // bool allowTouchInput - kvùli zastavení hry skrz StopGame() (GameControl script)
         if (allowTouchInput)
         {
             // pokud hráè kliknul
@@ -18,7 +18,7 @@ public class TouchManager : MonoBehaviour
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
 
-                // spuštìní Hit (Note script dotèené noty)
+                // spuštìní Hit() (Note script dotèené noty)
                 if (hit.collider != null)
                 {
                     Note noteComponent = hit.collider.GetComponent<Note>();

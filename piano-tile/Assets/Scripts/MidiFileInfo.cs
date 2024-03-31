@@ -64,16 +64,16 @@ public class MidiFileInfo : MonoBehaviour
 
     private void ReadFirstLine()
     {
-        // Access the first line
+        // naètení prvního øádku
         string firstLine = lines[0];
 
-        // Trim leading and trailing whitespace
+        // odøíznutí prázdných hodnot
         firstLine = firstLine.Trim();
 
-        // Split the first line into individual numbers using spaces
+        // rozdìlení naèísla podle mezer
         string[] firstLineSplit = firstLine.Split(' ');
 
-        // Convert each number to integer
+        // convertování stringù do intù
         foreach (string str in firstLineSplit)
         {
             try
@@ -93,16 +93,16 @@ public class MidiFileInfo : MonoBehaviour
 
     private void ReadSecondLine()
     {
-        // Access the second line
+        // naètení druhého øadku
         string secondLine = lines[1];
 
-        // Trim leading and trailing whitespace
+        // odøíznutí prázdných hodnot
         secondLine = secondLine.Trim();
 
-        // Split the second line into individual numbers using spaces
+        // rozdìlení po mezerách
         string[] secondLineSplit = secondLine.Split(' ');
 
-        // Convert each number to integer
+        // zmìna na int
         foreach (string str in secondLineSplit)
         {
             timeStamps.Add(float.Parse(str));
@@ -113,21 +113,8 @@ public class MidiFileInfo : MonoBehaviour
 
     private void ReadThirdLine()
     {
+        // naètení nejkratší noty
         shortestNoteSec = float.Parse(lines[2]);
         Debug.Log(shortestNoteSec);
     }
-
-    // slovník s bpm hodnotou každého levelu
-    private Dictionary<string, long> bpms = new Dictionary<string, long>()
-    {
-        { "CDur", 120 },
-        { "Hafo", 105 },
-        { "NeverGonna", 110 },
-        { "BlueDanube", 135 },
-        { "Canon", 90 },
-        { "FurElise", 80 },
-        { "RiverFlows", 120 },
-        { "Tequila ", 120 },
-        { "TwinkleTwinkle", 120 }
-    };
 }

@@ -22,15 +22,17 @@ public class GameControl : MonoBehaviour
 
     // spawn y pozice
     private Note lastSpawned;
-    private Note lastSpawnedVisible;
     private float lastSpawnedY;
+
+    // kvůli načtení posledního audio sourcu
+    private Note lastSpawnedVisible;
 
     // změna pozice x oproti minulé notě
     private int lastNoteId;
 
     public static int currentNote; // spawnování not
-    private float epsilon = 0.02f; // maximální rozdíl při porovnávání časových hodnot (frekvence volání fixed updatu)
-    private float spawnNotesDifference;
+    private float epsilon = 0.02f; 
+    private float spawnNotesDifference; // maximální rozdíl při porovnávání časových hodnot
 
     // čas poslední generace noty
     private float spawnCallTime;
@@ -51,7 +53,7 @@ public class GameControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 
+        // porovnání času od spuštění levelu a příštího spuštění noty
         float time = Time.timeSinceLevelLoad;
         float timeDifference = time - spawnCallTime;
         if (Mathf.Abs(timeDifference) < epsilon)
@@ -70,7 +72,6 @@ public class GameControl : MonoBehaviour
             // odpovídá čas timestampu jedné z not midi souboru?
             if (Mathf.Abs(spawnCallTime - MidiFileInfo.timeStamps[currentNote]) < spawnNotesDifference)
             {
-                Debug.Log("Spawned: " + spawnCallTime + ", timestamp: " + MidiFileInfo.timeStamps[currentNote]);
                 // změna generované x souřadnice oproti poslední notě
                 int rnd = Random.Range(0, spawns.Count);
                 while (lastNoteId == rnd)
@@ -78,6 +79,7 @@ public class GameControl : MonoBehaviour
                     rnd = Random.Range(0, spawns.Count);
                 }
                 
+                // načtení y souřadnice poslední noty
                 lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
 
                 // čtyři noty na řádek, jedna viditelná
@@ -87,32 +89,34 @@ public class GameControl : MonoBehaviour
 
                     if (i == rnd)
                     {
+                        // zviditelnění
                         lastSpawned.visible = true;
 
                         if (currentNote > 0 && lastSpawnedVisible != null)
                         {
+                            // načtení audio sourcu poslední noty do nové noty (na ztlumení audia)
                             Note noteComponent = lastSpawned.GetComponent<Note>();
                             noteComponent.lastAudioSource = lastSpawnedVisible.GetComponent<AudioSource>();
                             lastSpawnedVisible = lastSpawned;
                         }
 
-                        else
-                        {
-                            lastSpawnedVisible = lastSpawned;
-                        }
+                        // uložení této viditelné noty na příště
+                        lastSpawnedVisible = lastSpawned;
                     }
 
+                    // načtení čísla řádku
                     lastSpawned.rowNumber = currentNote;
                 }
 
+                // zapamatování spawnu
                 lastNoteId = rnd;
+
                 currentNote++;
             }
 
             // vytvoří čtyři noty na řádek, všechny neviditelné
             else
             {
-                Debug.Log("Spawn call time: " + spawnCallTime + ", Time Stamp: " + MidiFileInfo.timeStamps[currentNote]);
                 // y souřadnice posledního generovaného řádku
                 lastSpawnedY = lastSpawned?.transform?.position.y ?? NoteResize.spawnHeight;
 
@@ -123,6 +127,7 @@ public class GameControl : MonoBehaviour
                 }
             }
 
+            // čas generace tohoto řádku
             spawnCallTime = spawnCallTime + MidiFileInfo.shortestNoteSec;
         }
     }
@@ -142,6 +147,7 @@ public class GameControl : MonoBehaviour
         // zastavení audia
         AudioLevel.Instance.audioSource.mute = false;
 
+        // zvuk chyby (pokud jsme skončili chybou)
         if (currentRowNumber < MidiFileInfo.timeStamps.Count - 1)
         {
             AudioLevel.Instance.audioSource.clip = Resources.Load<AudioClip>("Piano/27");
@@ -172,6 +178,7 @@ public class GameControl : MonoBehaviour
 
     private void PrefEdit(int stars)
     {
+        // načtení jména levelu
         string currentLevelName = PlayerPrefs.GetString("CurrentLevel");
 
         // pokud už je uložena starší hodnota počtu hvězd v player prefs, porovnat a případně přepsat

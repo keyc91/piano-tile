@@ -58,8 +58,13 @@ public class Note : MonoBehaviour
             WrongNote();
         }
 
+        // smazání noty mimo obrazovku
         if (transform.position.y <= Camera.main.ScreenToWorldPoint(Vector2.zero).y - (2 * GameControl.noteHeight)) 
         {
+            // ztišení audia
+            audioSource.mute = true;
+
+            // destroy
             Destroy(gameObject);
         }
     }
@@ -87,8 +92,6 @@ public class Note : MonoBehaviour
 
     private void WrongNote()
     {
-        // pøehrání zvuku špatné noty
-
         // zmìna barvy noty + její zviditelnìní
         spriteRenderer.color = Color.black;
         rendererr.enabled = true;
@@ -102,11 +105,10 @@ public class Note : MonoBehaviour
         // nota nebyla dotèena - jedna nota nemùže pøièíst bod vícekrat
         if (!touched)
         {
-            Debug.Log(rowNumber);
             // zvuk noty
             audioSource.Play();
 
-            // zastavení zvuku noty (aby se v rychlejších levelech zvuk nepøekrýval)
+            // zastavení zvuku minulé noty (aby se v rychlejších levelech zvuk nepøekrýval)
             if (lastAudioSource != null)
             {
                 lastAudioSource.mute = true;
@@ -122,6 +124,7 @@ public class Note : MonoBehaviour
             GameControl.currentRowNumber = rowNumber;
             touched = true;
 
+            // ukonèení hry pøi dosažení poslední noty
             if (rowNumber == MidiFileInfo.timeStamps.Count - 1)
             {
                 GameControl.Instance.StopGame();
