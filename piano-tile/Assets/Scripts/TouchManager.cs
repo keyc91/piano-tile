@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,21 +8,21 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {
-        // bool allowTouchInput - kv˘li zastavenÌ hry skrz StopGame() (GameControl script)
+        // bool allowTouchInput - kv≈Øli zastaven√≠ hry skrz StopGame() (GameControl script)
         if (allowTouchInput)
         {
-            // pokud hr·Ë kliknul
+            // pokud hr√°ƒç kliknul
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 // oblast doteku ve world coordinates
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
 
-                // spuötÏnÌ Hit() (Note script dotËenÈ noty)
+                // spu≈°tƒõn√≠ Hit() (Note script dotƒçen√© noty)
                 if (hit.collider != null)
                 {
                     Note noteComponent = hit.collider.GetComponent<Note>();
-                    if (noteComponent != null )
+                    if (noteComponent != null)
                     {
                         noteComponent.Hit();
                     }
