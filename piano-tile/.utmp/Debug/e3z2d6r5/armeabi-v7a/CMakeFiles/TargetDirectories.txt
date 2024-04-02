@@ -1,5 +1,0 @@
-K:/Documents/GitHub/piano-tile/piano-tile/.utmp/Debug/e3z2d6r5/armeabi-v7a/CMakeFiles/edit_cache.dir
-K:/Documents/GitHub/piano-tile/piano-tile/.utmp/Debug/e3z2d6r5/armeabi-v7a/CMakeFiles/rebuild_cache.dir
-K:/Documents/GitHub/piano-tile/piano-tile/.utmp/Debug/e3z2d6r5/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
-K:/Documents/GitHub/piano-tile/piano-tile/.utmp/Debug/e3z2d6r5/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
-K:/Documents/GitHub/piano-tile/piano-tile/.utmp/Debug/e3z2d6r5/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
